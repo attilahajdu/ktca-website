@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fingerless Comfort Gloves | KTCA</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Lato:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['Lora', 'serif'],
+                        sans: ['Lato', 'sans-serif'],
+                    },
+                    colors: {
+                        paper: '#fdfbf7',
+                        'stone-custom': { 900: '#1c1917', 800: '#292524', 600: '#57534e', 400: '#a8a29e', 300: '#d6d3d1', 200: '#e7e5e4', 100: '#f5f5f4' },
+                        'moss-custom': { 900: '#2d382d', 800: '#3f4d3f', 700: '#4a5d4a', 100: '#e9efe9', 50: '#f4f7f4' },
+                        'teal-custom': { 900: '#134e4a', 800: '#2c4245', 100: '#dae8e8', 50: '#f0f5f5' }
+                    },
+                    boxShadow: {
+                        'soft': '0 20px 40px -10px rgba(63, 77, 63, 0.08)',
+                        'float': '0 10px 30px -5px rgba(0, 0, 0, 0.08)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        html { scroll-behavior: smooth; }
+        body { background-color: #fdfbf7; -webkit-font-smoothing: antialiased; color: #1c1917; overflow-x: hidden; }
+
+        .bg-grain::before {
+            content: ""; position: fixed; inset: 0; width: 100%; height: 100%;
+            opacity: 0.05; pointer-events: none; z-index: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        .bg-atmosphere {
+            position: fixed; inset: 0; z-index: -1; pointer-events: none;
+            background: radial-gradient(circle at 50% 0%, rgba(63, 77, 63, 0.03) 0%, transparent 60%);
+        }
+
+        .btn-primary {
+            background: #134e4a; color: #fff; border-radius: 99px;
+            transition: all 0.3s ease; border: 1px solid #134e4a;
+            box-shadow: 0 4px 6px -1px rgba(19, 78, 74, 0.2);
+        }
+        .btn-primary:hover { background: #0f3f3c; transform: translateY(-1px); box-shadow: 0 10px 15px -3px rgba(19, 78, 74, 0.3); }
+
+        .btn-secondary {
+            background: #fff; color: #3f4d3f; border-radius: 99px;
+            transition: all 0.3s ease; border: 1px solid #d6d3d1;
+        }
+        .btn-secondary:hover { border-color: #3f4d3f; transform: translateY(-1px); box-shadow: 0 4px 6px -1px rgba(63, 77, 63, 0.1); }
+
+        /* --- TOGGLE STYLING --- */
+        .level-toggle-container {
+            display: inline-flex;
+            background: white;
+            padding: 0.5rem;
+            border-radius: 999px;
+            border: 1px solid #e7e5e4;
+            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.05);
+            position: relative;
+        }
+
+        .tab-btn {
+            position: relative;
+            padding: 0.75rem 2.5rem;
+            border-radius: 999px;
+            font-size: 0.7rem;
+            font-weight: 800;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 10;
+        }
+
+        .tab-active {
+            background-color: #134e4a; /* Deep Teal */
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(19, 78, 74, 0.25);
+        }
+
+        .tab-inactive {
+            background-color: transparent;
+            color: #a8a29e;
+        }
+        .tab-inactive:hover {
+            color: #57534e;
+            background-color: #f5f5f4;
+        }
+
+        /* VIEW TRANSITIONS */
+        .view-section { transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out; }
+        .hidden-view { display: none; opacity: 0; transform: translateY(20px); }
+        .visible-view { display: block; opacity: 1; transform: translateY(0); }
+
+        .video-card { transition: transform 0.3s ease; }
+        .video-card:hover { transform: translateY(-4px); }
+        
+        .coaching-card {
+            background-size: 200% 200%;
+            background-image: linear-gradient(135deg, #134e4a 0%, #0f3f3c 50%, #1a5f5a 100%);
+            transition: background-position 0.8s ease, transform 0.4s ease;
+        }
+        .coaching-card:hover { background-position: 100% 100%; transform: scale(1.01); }
+    </style>
+</head>
+<body class="font-sans bg-grain relative">
+    <div class="bg-atmosphere"></div>
+
+    <div class="bg-moss-custom-800 text-white text-[10px] py-2 text-center font-serif italic tracking-[0.2em] uppercase relative z-50 border-b border-moss-custom-900">
+        Knitting Treasures, Creating Art
+    </div>
+
+    <nav class="sticky top-0 z-40 bg-paper/95 backdrop-blur-md border-b border-stone-200 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 h-20 flex items-center justify-between">
+            <div class="hidden md:flex flex-1 gap-8 text-[11px] font-bold uppercase tracking-[0.2em] text-stone-custom-800">
+                <a href="index.html#patterns" class="hover:text-teal-custom-900 transition-colors py-2">Patterns</a>
+                <a href="index.html#tutorials" class="hover:text-teal-custom-900 transition-colors py-2">Tutorials</a>
+                <a href="index.html#community" class="hover:text-teal-custom-900 transition-colors py-2">Community</a>
+            </div>
+            <a href="index.html" class="flex-shrink-0 mx-auto transform hover:scale-105 transition-transform duration-500">
+                <img src="ktca-logo-2026.png" alt="KTCA" class="h-14 drop-shadow-sm mix-blend-multiply">
+            </a>
+            <div class="hidden md:flex flex-1 items-center justify-end gap-8 text-[11px] font-bold uppercase tracking-[0.2em] text-stone-custom-800">
+                <a href="#" class="btn-primary px-6 py-2.5 text-[10px] tracking-widest uppercase font-bold">Shop Kits</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="pt-12 pb-24 px-6 md:px-12 max-w-7xl mx-auto min-h-screen">
+        
+        <div class="text-center mb-8">
+            <div class="text-[10px] text-stone-custom-400 font-bold uppercase tracking-[0.15em] inline-block mb-8">
+                <a href="index.html" class="hover:text-teal-custom-900">Home</a> <span class="mx-2">/</span> <a href="index.html#patterns" class="hover:text-teal-custom-900">Patterns</a> <span class="mx-2">/</span> <span class="text-teal-custom-900">Comfort Gloves</span>
+            </div>
+            
+            <div class="flex justify-center w-full">
+                <div class="level-toggle-container">
+                    <button id="btnBeginner" onclick="switchView('beginner')" class="tab-btn tab-active">Beginner</button>
+                    <button id="btnAdvanced" onclick="switchView('advanced')" class="tab-btn tab-inactive">Advanced</button>
+                </div>
+            </div>
+            <p class="text-center text-stone-400 text-xs italic mt-4">Select your skill level to customize the pattern details below.</p>
+        </div>
+
+        <div id="viewBeginner" class="view-section visible-view mt-16">
+            
+            <div class="grid md:grid-cols-2 gap-16 mb-24 border-b border-stone-200 pb-20">
+                <div class="space-y-6">
+                    <div class="aspect-[4/5] rounded-[3rem] overflow-hidden border-[8px] border-white shadow-xl ring-1 ring-stone-200 relative">
+                        <span class="absolute top-6 left-6 bg-white/90 backdrop-blur-sm text-teal-custom-900 text-[10px] font-bold uppercase tracking-widest px-4 py-2 rounded-full z-10 border border-teal-custom-900/10">Beginner Friendly</span>
+                        <img src="glove1.jpg" class="w-full h-full object-cover transition-transform duration-700 hover:scale-105" alt="Simple Fingerless Gloves">
+                    </div>
+                    <div class="grid grid-cols-3 gap-4">
+                        <img src="glove1.jpg" class="aspect-square rounded-2xl object-cover cursor-pointer border-2 border-teal-900 shadow-sm">
+                        <img src="feet1.jpg" class="aspect-square rounded-2xl object-cover cursor-pointer border-2 border-transparent hover:border-stone-300 opacity-70 hover:opacity-100 transition-all">
+                        <img src="glove2.jpg" class="aspect-square rounded-2xl object-cover cursor-pointer border-2 border-transparent hover:border-stone-300 opacity-70 hover:opacity-100 transition-all">
+                    </div>
+                </div>
+
+                <div class="flex flex-col justify-center">
+                    <span class="text-teal-custom-900 font-bold uppercase tracking-[0.2em] text-[10px] mb-3">Level 1 Pattern</span>
+                    <h1 class="font-serif text-5xl md:text-6xl text-stone-custom-900 mb-6 leading-tight">Fingerless Comfort Gloves</h1>
+                    <p class="text-2xl font-serif italic text-stone-500 mb-8">£8.00 <span class="text-[10px] text-stone-custom-400 font-sans not-italic font-bold tracking-widest ml-3 align-middle bg-stone-100 px-2 py-1 rounded">PDF DOWNLOAD</span></p>
+                    
+                    <div class="prose text-stone-custom-600 mb-10 leading-relaxed">
+                        <p class="font-bold text-stone-900 mb-2">Start your adaptive knitting journey here.</p>
+                        <p class="mb-6">This version focuses on the fundamentals of seamless comfort. Using a simple stockinette stitch and a forgiving ribbed cuff, you will create a highly functional glove that provides warmth without irritation.</p>
+                        
+                        <div class="bg-stone-custom-100 p-6 rounded-2xl border border-stone-200">
+                            <h4 class="text-[10px] font-bold uppercase tracking-widest text-stone-500 mb-3">What you'll learn:</h4>
+                            <ul class="space-y-2 text-sm text-stone-700">
+                                <li class="flex items-start gap-3"><i data-lucide="check" class="w-4 h-4 text-teal-custom-900 mt-0.5"></i> Simple seamless construction</li>
+                                <li class="flex items-start gap-3"><i data-lucide="check" class="w-4 h-4 text-teal-custom-900 mt-0.5"></i> Ribbed cuff for gentle expansion</li>
+                                <li class="flex items-start gap-3"><i data-lucide="check" class="w-4 h-4 text-teal-custom-900 mt-0.5"></i> Basic thumb gusset shaping</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <button class="btn-primary w-full py-5 text-lg font-serif italic mb-6 shadow-xl hover:shadow-2xl">Buy Pattern Kit - £8</button>
+                    <p class="text-center text-[10px] text-stone-400 uppercase tracking-widest mb-8">Includes both Beginner & Advanced versions</p>
+                    
+                    <div class="flex gap-4">
+                        <button class="flex-1 btn-secondary py-3 text-[10px] font-bold uppercase tracking-widest">Join Community</button>
+                        <button class="flex-1 btn-secondary py-3 text-[10px] font-bold uppercase tracking-widest">Knit 1:1</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-stone-custom-100 rounded-[3rem] p-8 md:p-16 border border-stone-custom-200">
+                
+                <div class="mb-16">
+                    <div class="flex items-center gap-4 mb-8">
+                        <span class="w-12 h-px bg-stone-300"></span>
+                        <span class="text-[10px] font-bold uppercase tracking-[0.25em] text-teal-custom-900">Video Guidance</span>
+                    </div>
+                    <h3 class="font-serif text-4xl text-stone-custom-900 mb-10">Step-by-Step for Beginners</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="video-card group cursor-pointer bg-white p-3 rounded-[2.5rem] border border-stone-200 shadow-sm hover:shadow-md transition-all">
+                            <div class="aspect-video bg-stone-800 rounded-[2rem] overflow-hidden relative mb-4">
+                                <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-all z-10"></div>
+                                <div class="absolute inset-0 flex items-center justify-center z-20"><div class="w-14 h-14 bg-white/95 rounded-full flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform"><i data-lucide="play" class="ml-1 text-teal-custom-900 fill-teal-custom-900 w-5 h-5"></i></div></div>
+                                <img src="article2.jpg" class="w-full h-full object-cover">
+                            </div>
+                            <div class="px-4 pb-4">
+                                <h4 class="font-serif text-xl font-bold mb-2 text-stone-900">Casting On & Ribbing</h4>
+                                <p class="text-sm text-stone-custom-500">A slow-motion guide to starting your gloves with a stretchy cuff.</p>
+                            </div>
+                        </div>
+                        <div class="video-card group cursor-pointer bg-white p-3 rounded-[2.5rem] border border-stone-200 shadow-sm hover:shadow-md transition-all">
+                            <div class="aspect-video bg-stone-800 rounded-[2rem] overflow-hidden relative mb-4">
+                                <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-all z-10"></div>
+                                <div class="absolute inset-0 flex items-center justify-center z-20"><div class="w-14 h-14 bg-white/95 rounded-full flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform"><i data-lucide="play" class="ml-1 text-teal-custom-900 fill-teal-custom-900 w-5 h-5"></i></div></div>
+                                <img src="feet1.jpg" class="w-full h-full object-cover">
+                            </div>
+                            <div class="px-4 pb-4">
+                                <h4 class="font-serif text-xl font-bold mb-2 text-stone-900">Basic Thumb Gusset</h4>
+                                <p class="text-sm text-stone-custom-500">Simple increases to create space for the thumb.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="coaching-card rounded-[2.5rem] p-10 md:p-14 border border-teal-custom-800 shadow-xl text-center text-white relative overflow-hidden group mb-16 mx-auto max-w-4xl">
+                    <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle, #fff 1px, transparent 1px); background-size: 24px 24px;"></div>
+                    <span class="text-[10px] font-bold uppercase tracking-[0.3em] text-teal-custom-100 mb-4 relative z-10 bg-teal-custom-900/50 px-3 py-1 rounded-full backdrop-blur-sm inline-block">Need extra help?</span>
+                    <h3 class="font-serif text-3xl md:text-4xl mb-4 relative z-10">Stuck on the basics?</h3>
+                    <p class="text-teal-custom-100/90 mb-8 max-w-lg mx-auto relative z-10">Book a private 30-minute session to get unstuck. I'll walk you through the cast-on or first few rows personally.</p>
+                    <a href="#" class="bg-white text-teal-custom-900 px-8 py-3 rounded-full font-bold uppercase text-[10px] tracking-widest shadow-lg hover:bg-stone-100 transition-all relative z-10 inline-block">Book 1:1 Help</a>
+                </div>
+
+                <div class="border-t border-stone-200 pt-12">
+                    <span class="text-[10px] font-bold uppercase tracking-[0.25em] text-moss-custom-800 block mb-6">Tips & Tricks</span>
+                    <h3 class="font-serif text-3xl text-stone-custom-900 mb-8">Getting Started Right</h3>
+                    <div class="prose text-stone-custom-600 max-w-none columns-1 md:columns-2 gap-16 leading-relaxed">
+                        <p class="mb-6"><strong>Yarn Choice:</strong> For beginners, choose a yarn that is smooth and light-colored. Dark yarns make it harder to see your stitches, which can be frustrating when learning new techniques.</p>
+                        <p class="mb-6"><strong>Stitch Markers:</strong> Use a distinct stitch marker to highlight the beginning of the round. This simple step prevents the most common mistake of losing your place in the pattern.</p>
+                        <p><strong>Blocking:</strong> Always wash and block your swatch before starting. Adaptive wear needs to fit precisely, and yarn can grow or shrink significantly after the first wash.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="viewAdvanced" class="view-section hidden-view mt-16">
+            
+            <div class="grid md:grid-cols-2 gap-16 mb-24 border-b border-stone-200 pb-20">
+                <div class="space-y-6">
+                    <div class="aspect-[4/5] rounded-[3rem] overflow-hidden border-[8px] border-white shadow-xl ring-1 ring-stone-200 relative">
+                        <span class="absolute top-6 left-6 bg-stone-900 text-white text-[10px] font-bold uppercase tracking-widest px-4 py-2 rounded-full z-10">Level 2: Advanced</span>
+                        <img src="glove3.jpg" class="w-full h-full object-cover transition-transform duration-700 hover:scale-105" alt="Cabled Comfort Gloves">
+                    </div>
+                    <div class="grid grid-cols-3 gap-4">
+                        <img src="glove3.jpg" class="aspect-square rounded-2xl object-cover cursor-pointer border-2 border-stone-900 shadow-sm">
+                        <img src="glove2.jpg" class="aspect-square rounded-2xl object-cover cursor-pointer border-2 border-transparent hover:border-stone-300 opacity-70 hover:opacity-100 transition-all">
+                        <img src="yarnchoice.jpg" class="aspect-square rounded-2xl object-cover cursor-pointer border-2 border-transparent hover:border-stone-300 opacity-70 hover:opacity-100 transition-all">
+                    </div>
+                </div>
+
+                <div class="flex flex-col justify-center">
+                    <span class="text-stone-500 font-bold uppercase tracking-[0.2em] text-[10px] mb-3">Level 2 Pattern</span>
+                    <h1 class="font-serif text-5xl md:text-6xl text-stone-custom-900 mb-6 leading-tight">Fingerless Comfort Gloves <span class="block text-3xl italic text-stone-400 mt-2 font-light">Cabled Edition</span></h1>
+                    <p class="text-2xl font-serif italic text-teal-custom-900 mb-8">£8.00 <span class="text-[10px] text-stone-custom-400 font-sans not-italic font-bold tracking-widest ml-3 align-middle bg-stone-100 px-2 py-1 rounded">PDF DOWNLOAD</span></p>
+                    
+                    <div class="prose text-stone-custom-600 mb-10 leading-relaxed">
+                        <p class="font-bold text-stone-900 mb-2">Refined techniques for complex needs.</p>
+                        <p class="mb-6">This advanced version introduces intricate cabling that looks beautiful and adds structural elasticity. We also utilize tubular cast-ons and invisible finishing for a truly professional, zero-friction interior.</p>
+                        
+                        <div class="bg-stone-custom-100 p-6 rounded-2xl border border-stone-200">
+                            <h4 class="text-[10px] font-bold uppercase tracking-widest text-stone-500 mb-3">Advanced Features:</h4>
+                            <ul class="space-y-2 text-sm text-stone-700">
+                                <li class="flex items-start gap-3"><i data-lucide="plus" class="w-4 h-4 text-teal-custom-900 mt-0.5"></i> Complex cable charts included</li>
+                                <li class="flex items-start gap-3"><i data-lucide="plus" class="w-4 h-4 text-teal-custom-900 mt-0.5"></i> Invisible seam finishing techniques</li>
+                                <li class="flex items-start gap-3"><i data-lucide="plus" class="w-4 h-4 text-teal-custom-900 mt-0.5"></i> Structural elasticity for orthotic fit</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <button class="btn-primary w-full py-5 text-lg font-serif italic mb-6 shadow-xl hover:shadow-2xl">Buy Pattern Kit - £8</button>
+                    <p class="text-center text-[10px] text-stone-400 uppercase tracking-widest mb-8">Includes both Beginner & Advanced versions</p>
+                    
+                    <div class="flex gap-4">
+                        <button class="flex-1 btn-secondary py-3 text-[10px] font-bold uppercase tracking-widest">Join Community</button>
+                        <button class="flex-1 btn-secondary py-3 text-[10px] font-bold uppercase tracking-widest">Knit 1:1</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-stone-custom-100 rounded-[3rem] p-8 md:p-16 border border-stone-custom-200">
+                
+                <div class="mb-16">
+                    <div class="flex items-center gap-4 mb-8">
+                        <span class="w-12 h-px bg-stone-300"></span>
+                        <span class="text-[10px] font-bold uppercase tracking-[0.25em] text-teal-custom-900">Masterclass</span>
+                    </div>
+                    <h3 class="font-serif text-4xl text-stone-custom-900 mb-10">Advanced Techniques</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="video-card group cursor-pointer bg-white p-3 rounded-[2.5rem] border border-stone-200 shadow-sm hover:shadow-md transition-all">
+                            <div class="aspect-video bg-stone-800 rounded-[2rem] overflow-hidden relative mb-4">
+                                <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-all z-10"></div>
+                                <div class="absolute inset-0 flex items-center justify-center z-20"><div class="w-14 h-14 bg-white/95 rounded-full flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform"><i data-lucide="play" class="ml-1 text-teal-custom-900 fill-teal-custom-900 w-5 h-5"></i></div></div>
+                                <img src="glove3.jpg" class="w-full h-full object-cover">
+                            </div>
+                            <div class="px-4 pb-4">
+                                <h4 class="font-serif text-xl font-bold mb-2 text-stone-900">Cable Modifications</h4>
+                                <p class="text-sm text-stone-custom-500">Integrating complex cables while maintaining elasticity for medical devices.</p>
+                            </div>
+                        </div>
+                        <div class="video-card group cursor-pointer bg-white p-3 rounded-[2.5rem] border border-stone-200 shadow-sm hover:shadow-md transition-all">
+                            <div class="aspect-video bg-stone-800 rounded-[2rem] overflow-hidden relative mb-4">
+                                <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-all z-10"></div>
+                                <div class="absolute inset-0 flex items-center justify-center z-20"><div class="w-14 h-14 bg-white/95 rounded-full flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform"><i data-lucide="play" class="ml-1 text-teal-custom-900 fill-teal-custom-900 w-5 h-5"></i></div></div>
+                                <img src="glove2.jpg" class="w-full h-full object-cover">
+                            </div>
+                            <div class="px-4 pb-4">
+                                <h4 class="font-serif text-xl font-bold mb-2 text-stone-900">Invisible Seams</h4>
+                                <p class="text-sm text-stone-custom-500">Advanced finishing techniques for zero-friction interiors.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="coaching-card rounded-[2.5rem] p-10 md:p-14 border border-teal-custom-800 shadow-xl text-center text-white relative overflow-hidden group mb-16 mx-auto max-w-4xl">
+                    <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle, #fff 1px, transparent 1px); background-size: 24px 24px;"></div>
+                    <span class="text-[10px] font-bold uppercase tracking-[0.3em] text-teal-custom-100 mb-4 relative z-10 bg-teal-custom-900/50 px-3 py-1 rounded-full backdrop-blur-sm inline-block">Complex Needs?</span>
+                    <h3 class="font-serif text-3xl md:text-4xl mb-4 relative z-10">Adapting for specific medical requirements?</h3>
+                    <p class="text-teal-custom-100/90 mb-8 max-w-lg mx-auto relative z-10">Book a private session to discuss how to modify this pattern for specific orthotics, PICC lines, or sensory processing disorders.</p>
+                    <a href="#" class="bg-white text-teal-custom-900 px-8 py-3 rounded-full font-bold uppercase text-[10px] tracking-widest shadow-lg hover:bg-stone-100 transition-all relative z-10 inline-block">Book Expert Consult</a>
+                </div>
+
+                <div class="border-t border-stone-200 pt-12">
+                    <span class="text-[10px] font-bold uppercase tracking-[0.25em] text-moss-custom-800 block mb-6">Expert Tips</span>
+                    <h3 class="font-serif text-3xl text-stone-custom-900 mb-8">Modifications for Mobility</h3>
+                    <div class="prose text-stone-custom-600 max-w-none columns-1 md:columns-2 gap-16 leading-relaxed">
+                        <p class="mb-6"><strong>Thumb Placement:</strong> For advanced knitters, adjusting the thumb gusset placement based on specific hand mobility issues is crucial. Consider moving the gusset 1-2 stitches forward for palmar abduction issues.</p>
+                        <p class="mb-6"><strong>Float Management:</strong> When using colorwork, ensure your floats are caught every 3 stitches. Long floats can catch on fingers or medical equipment inside the glove, creating a safety hazard.</p>
+                        <p><strong>Tubular Bind-offs:</strong> Experiment with tubular bind-offs for a finish that is both visually professional and extremely elastic, perfect for swollen joints or fitting over casts.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="pt-20 pb-10 text-center border-t border-stone-200 bg-stone-custom-100">
+        <img src="ktca-logo-2026.png" class="h-16 mx-auto mb-10 opacity-70 grayscale hover:grayscale-0 transition-all mix-blend-multiply">
+        <h4 class="font-serif text-3xl text-stone-custom-900 mb-4">Knitting That Comforts All</h4>
+        <div class="flex flex-wrap justify-center gap-12 text-[10px] font-bold uppercase tracking-[0.2em] text-stone-custom-500 mb-16 pt-8">
+            <a href="index.html#patterns" class="hover:text-teal-custom-900 transition-all">Patterns</a>
+            <a href="index.html#tutorials" class="hover:text-teal-custom-900 transition-all">Tutorials</a>
+            <a href="index.html#community" class="hover:text-teal-custom-900 transition-all">Community</a>
+            <a href="index.html#about" class="hover:text-teal-custom-900 transition-all">Story</a>
+        </div>
+        <div class="max-w-7xl mx-auto border-t border-stone-custom-200 pt-10 flex flex-col md:flex-row justify-between px-12 text-[9px] font-bold text-stone-custom-400 tracking-widest uppercase">
+            <span>© 2026 KTCA. ALL RIGHTS RESERVED.</span>
+            <div class="flex gap-8 mt-4 md:mt-0"><a href="#" class="hover:text-stone-custom-800">Privacy</a><a href="#" class="hover:text-stone-custom-800">Terms</a></div>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        function switchView(viewName) {
+            const beginnerView = document.getElementById('viewBeginner');
+            const advancedView = document.getElementById('viewAdvanced');
+            const btnBeginner = document.getElementById('btnBeginner');
+            const btnAdvanced = document.getElementById('btnAdvanced');
+
+            if (viewName === 'beginner') {
+                // Fade out Advanced
+                advancedView.style.opacity = '0';
+                advancedView.style.transform = 'translateY(10px)';
+                
+                setTimeout(() => {
+                    advancedView.classList.replace('visible-view', 'hidden-view');
+                    beginnerView.classList.replace('hidden-view', 'visible-view');
+                    
+                    // Fade in Beginner
+                    requestAnimationFrame(() => {
+                        beginnerView.style.opacity = '1';
+                        beginnerView.style.transform = 'translateY(0)';
+                    });
+                }, 400);
+
+                // Update Toggle State
+                btnBeginner.classList.add('tab-active');
+                btnBeginner.classList.remove('tab-inactive');
+                btnAdvanced.classList.remove('tab-active');
+                btnAdvanced.classList.add('tab-inactive');
+
+            } else {
+                // Fade out Beginner
+                beginnerView.style.opacity = '0';
+                beginnerView.style.transform = 'translateY(10px)';
+                
+                setTimeout(() => {
+                    beginnerView.classList.replace('visible-view', 'hidden-view');
+                    advancedView.classList.replace('hidden-view', 'visible-view');
+                    
+                    // Fade in Advanced
+                    requestAnimationFrame(() => {
+                        advancedView.style.opacity = '1';
+                        advancedView.style.transform = 'translateY(0)';
+                    });
+                }, 400);
+
+                // Update Toggle State
+                btnAdvanced.classList.add('tab-active');
+                btnAdvanced.classList.remove('tab-inactive');
+                btnBeginner.classList.remove('tab-active');
+                btnBeginner.classList.add('tab-inactive');
+            }
+        }
+    </script>
+</body>
+</html>

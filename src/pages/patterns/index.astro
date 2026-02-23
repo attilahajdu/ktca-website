@@ -1,0 +1,123 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { patterns } from '../../data/patterns';
+import feet1 from '../../assets/images/feet1.jpg';
+import glove1 from '../../assets/images/glove1.jpg';
+import glove2 from '../../assets/images/glove2.jpg';
+import glove3 from '../../assets/images/glove3.jpg';
+
+/** Map imageKey from patterns data to the actual image src. When adding a new pattern, add its image here. */
+const imageMap: Record<string, { src: string }> = {
+	feet1,
+	glove1,
+	glove2,
+	glove3,
+};
+---
+
+<Layout title="Pattern Collection | KTCA">
+	<main class="pt-8 sm:pt-12 pb-20 sm:pb-24 px-4 sm:px-6 lg:px-12 max-w-[1440px] mx-auto min-h-screen">
+		<div class="mb-10 sm:mb-12">
+			<div class="text-[10px] text-stone-custom-400 font-bold uppercase tracking-[0.15em] inline-block mb-4">
+				<a href="/" class="hover:text-teal-custom-900">Home</a> <span class="mx-2">/</span> <span class="text-teal-custom-900">Patterns</span>
+			</div>
+			<h1 class="font-serif text-4xl md:text-5xl text-stone-custom-900 mb-3">Pattern Collection</h1>
+			<p class="text-stone-custom-600 font-medium max-w-2xl">Thoughtfully designed knitting and crochet patterns for functionality and dignity. Buy directly or explore each pattern for details and beginner/advanced options.</p>
+		</div>
+
+		<div class="flex flex-wrap gap-3 mb-10 sm:mb-12" role="group" aria-label="Filter by type">
+			<button type="button" class="filter-pill active" data-filter="all" aria-pressed="true">All</button>
+			<button type="button" class="filter-pill" data-filter="knitting" aria-pressed="false">Knitting</button>
+			<button type="button" class="filter-pill" data-filter="crochet" aria-pressed="false">Crochet</button>
+		</div>
+
+		<div id="patterns-grid" class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+			{patterns.map((p) => {
+				const imgSrc = p.imageUrl ?? (p.imageKey && imageMap[p.imageKey] ? imageMap[p.imageKey].src : '');
+				return (
+					<article
+						class="pattern-card bg-white p-5 rounded-[2.5rem] border border-stone-200 shadow-sm hover:shadow-xl transition-all card-hover flex flex-col"
+						data-type={p.type}
+					>
+						<div class="aspect-[10/11] rounded-[2rem] overflow-hidden mb-6 relative border border-stone-100">
+							{imgSrc && (
+								<img
+									src={imgSrc}
+									alt=""
+									class="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+								/>
+							)}
+							<div class="absolute inset-0 bg-moss-custom-900/0 hover:bg-moss-custom-900/5 transition-colors pointer-events-none" aria-hidden="true"></div>
+							<span class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm text-stone-custom-800 text-[9px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full border border-stone-200">
+								{p.type}
+							</span>
+						</div>
+						<div class="text-center px-2 pb-2 flex flex-col flex-grow">
+							<h2 class="font-serif text-xl font-semibold text-stone-custom-900 mb-2">{p.title}</h2>
+							<p class="text-sm text-stone-custom-600 mb-4 leading-relaxed line-clamp-2 min-h-[2.5rem]">{p.shortDescription}</p>
+							{p.hasBeginner && (
+								<p class="text-[10px] text-stone-custom-500 uppercase tracking-wider mb-3">
+									{p.hasAdvanced ? 'Beginner & Advanced' : 'Beginner friendly'}
+								</p>
+							)}
+							<div class="mt-auto space-y-3">
+								<a
+									href={p.detailUrl}
+									class="block w-full text-center text-[10px] font-bold uppercase tracking-widest text-stone-custom-500 border border-stone-200 px-6 py-3 rounded-full hover:bg-teal-custom-900 hover:text-white hover:border-teal-custom-900 transition-all"
+								>
+									Find out more
+								</a>
+								<a
+									href={p.buyUrl}
+									class="btn-primary block w-full text-center py-3 text-sm font-serif italic"
+								>
+									Buy PDF — {p.price}
+								</a>
+							</div>
+						</div>
+					</article>
+				);
+			})}
+		</div>
+
+		<div id="no-results" class="hidden text-center py-16 text-stone-custom-500 font-medium" aria-live="polite">
+			No patterns match this filter. Try another type.
+		</div>
+	</main>
+
+	<script is:inline>
+		(function () {
+			var grid = document.getElementById('patterns-grid');
+			var noResults = document.getElementById('no-results');
+			var cards = grid ? grid.querySelectorAll('.pattern-card') : [];
+			var buttons = document.querySelectorAll('.filter-pill');
+
+			function setActiveButton(active) {
+				buttons.forEach(function (btn) {
+					var isActive = btn.getAttribute('data-filter') === active;
+					btn.classList.toggle('active', isActive);
+					btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+				});
+			}
+
+			function filter(type) {
+				var visible = 0;
+				cards.forEach(function (card) {
+					var cardType = card.getAttribute('data-type');
+					var show = type === 'all' || cardType === type;
+					card.style.display = show ? '' : 'none';
+					if (show) visible++;
+				});
+				if (noResults) noResults.classList.toggle('hidden', visible > 0);
+				setActiveButton(type);
+			}
+
+			buttons.forEach(function (btn) {
+				btn.addEventListener('click', function () {
+					var type = btn.getAttribute('data-filter');
+					if (type) filter(type);
+				});
+			});
+		})();
+	</script>
+</Layout>

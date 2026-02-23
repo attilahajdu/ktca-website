@@ -1,0 +1,39 @@
+---
+import logo from '../assets/images/ktca-logo-2026.png';
+---
+<div class="bg-moss-custom-800 text-white text-[10px] py-2 px-3 text-center font-serif italic tracking-[0.15em] sm:tracking-[0.2em] uppercase relative z-50 border-b border-moss-custom-900 overflow-hidden">
+    Knitting Treasures, Creating Art
+</div>
+
+<nav class="sticky top-0 z-40 bg-paper/95 backdrop-blur-md border-b border-stone-200 transition-all duration-300" aria-label="Main navigation">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 h-[4.25rem] sm:h-20 flex items-center justify-between">
+        <div class="flex-1 flex items-center justify-start min-w-0 h-full">
+            <button type="button" id="navBurger" class="nav-burger lg:hidden h-full" aria-label="Open menu" aria-expanded="false" aria-controls="navDrawer">
+                <span></span><span></span><span></span>
+            </button>
+            <div class="hidden lg:flex items-center h-full gap-4 xl:gap-5 text-[10px] xl:text-[11px] font-bold uppercase tracking-[0.2em] text-stone-custom-800">
+                <a href="/#patterns" data-section="patterns" class="nav-link-item h-full flex items-center border-b-2 border-transparent hover:border-teal-custom-900 hover:text-teal-custom-900 transition-colors">Patterns</a>
+                <a href="/#free-school" data-section="free-school" class="nav-link-item h-full flex items-center border-b-2 border-transparent hover:border-teal-custom-900 hover:text-teal-custom-900 transition-colors">Free SKOOL Community</a>
+                <a href="/#about" data-section="about" class="nav-link-item h-full flex items-center border-b-2 border-transparent hover:border-teal-custom-900 hover:text-teal-custom-900 transition-colors">Our Story</a>
+            </div>
+        </div>
+        <a href="/" class="flex-shrink-0 flex items-center h-full px-2 transform hover:scale-105 transition-transform duration-300">
+            <img src={logo.src} alt="KTCA" class="h-10 sm:h-11 lg:h-12 w-auto drop-shadow-sm mix-blend-multiply object-contain">
+        </a>
+        <div class="flex-1 flex items-center justify-end min-w-0 h-full gap-4 xl:gap-5">
+            <a href="/#sensory-crochet" data-section="sensory-crochet" class="nav-link-item hidden lg:flex items-center h-full gap-2 text-stone-custom-500 text-[10px] xl:text-[11px] font-bold uppercase tracking-[0.2em] border-b-2 border-transparent hover:text-teal-custom-900 transition-colors">
+                Crochet <span class="badge-coming-soon-nav">Coming soon</span>
+            </a>
+            <a href="/#member-vault" data-section="member-vault" class="hidden lg:inline-flex items-center justify-center btn-primary px-4 xl:px-5 py-2 h-9 text-[10px] tracking-[0.2em] font-bold uppercase rounded-full shrink-0 nav-link-item">Member Vault</a>
+        </div>
+    </div>
+</nav>
+
+<div id="navBackdrop" class="nav-backdrop" aria-hidden="true"></div>
+<div id="navDrawer" class="nav-drawer" role="dialog" aria-modal="true" aria-label="Menu" aria-hidden="true">
+    <a href="/#patterns" class="nav-drawer-link">Patterns</a>
+    <a href="/#free-school" class="nav-drawer-link">Free SKOOL Community</a>
+    <a href="/#member-vault" class="nav-drawer-link">Member Vault</a>
+    <a href="/#sensory-crochet" class="nav-drawer-link flex items-center gap-2 text-stone-custom-500">Crochet <span class="badge-coming-soon-nav">Coming soon</span></a>
+    <a href="/#about" class="nav-drawer-link">Our Story</a>
+</div>

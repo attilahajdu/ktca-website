@@ -1,0 +1,138 @@
+---
+import GlobalHeader from '../components/GlobalHeader.astro';
+import GlobalFooter from '../components/GlobalFooter.astro';
+
+interface Props {
+	title?: string;
+}
+const { title = 'KTCA | Knitting That Comforts All' } = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{title}</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Lato:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/global.css">
+    <style is:inline>
+        html { scroll-behavior: smooth; }
+        body { background-color: #fdfbf7; -webkit-font-smoothing: antialiased; color: #1c1917; overflow-x: hidden; }
+        .bg-atmosphere { position: fixed; inset: 0; z-index: -1; pointer-events: none; background: radial-gradient(circle at 15% 15%, rgba(63, 77, 63, 0.04) 0%, transparent 45%), radial-gradient(circle at 85% 85%, rgba(19, 78, 74, 0.04) 0%, transparent 45%); }
+        .bg-grain::before { content: ""; position: fixed; inset: 0; width: 100%; height: 100%; opacity: 0.05; pointer-events: none; z-index: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E"); }
+        .h1-hero { font-family: 'Lora', serif; font-weight: 500; letter-spacing: -0.02em; line-height: 1.15; }
+        .card-hover { transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); }
+        .card-hover:hover { transform: translateY(-6px); box-shadow: 0 25px 50px -12px rgba(63, 77, 63, 0.12); }
+        .btn-primary { background: #134e4a; color: #fff; border-radius: 99px; transition: all 0.3s ease; border: 1px solid #134e4a; box-shadow: 0 4px 6px -1px rgba(19, 78, 74, 0.2); }
+        .btn-primary:hover { background: #0f3f3c; transform: translateY(-1px); box-shadow: 0 10px 15px -3px rgba(19, 78, 74, 0.3); }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .carousel-container { scroll-snap-type: x mandatory; scroll-behavior: smooth; width: 100%; }
+        .carousel-item { scroll-snap-align: start; }
+        .video-card-width { width: 85vw; flex-shrink: 0; }
+        @media (min-width: 768px) { .video-card-width { width: 40vw; } }
+        @media (min-width: 1280px) { .video-card-width { width: calc((100% - (2rem * 4)) / 4.5); } }
+        .wave-divider { position: absolute; bottom: -1px; left: 0; width: 100%; height: 50px; z-index: 10; }
+        .community-card { transition: transform 0.5s ease; }
+        .community-card:hover { transform: scale(1.01); }
+        .coaching-card { background-size: 200% 200%; background-image: linear-gradient(135deg, #134e4a 0%, #0f3f3c 50%, #1a5f5a 100%); transition: background-position 0.8s ease, transform 0.4s ease; }
+        .coaching-card:hover { background-position: 100% 100%; transform: scale(1.01); }
+        .community-avatar { transition: transform 0.3s ease, margin 0.3s ease; }
+        .community-card:hover .community-avatar { margin-right: 0.5rem; transform: scale(1.1); }
+    </style>
+
+    <script is:inline src="https://cdn.tailwindcss.com"></script>
+    <script is:inline>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['Lora', 'serif'],
+                        sans: ['Lato', 'sans-serif'],
+                    },
+                    colors: {
+                        paper: '#fdfbf7',
+                        'stone-custom': {
+                            900: '#1c1917', 800: '#292524', 600: '#57534e', 400: '#a8a29e',
+                            300: '#d6d3d1', 200: '#e7e5e4',
+                            100: '#f5f5f4',
+                        },
+                        'moss-custom': {
+                            900: '#2d382d', 800: '#3f4d3f', 700: '#4a5d4a',
+                            100: '#e9efe9',
+                            50: '#f4f7f4'
+                        },
+                        'teal-custom': { 900: '#134e4a', 800: '#2c4245', 100: '#dae8e8', 50: '#f0f5f5' }
+                    },
+                    boxShadow: {
+                        'soft': '0 20px 40px -10px rgba(63, 77, 63, 0.08)',
+                    }
+                }
+            }
+        }
+    </script>
+    <script is:inline src="https://unpkg.com/lucide@latest"></script>
+    <slot name="head" />
+</head>
+<body class="font-sans bg-grain relative">
+    <div class="bg-atmosphere" aria-hidden="true"></div>
+    <GlobalHeader />
+    <slot />
+    <GlobalFooter />
+    <script is:inline>
+        (function() {
+            var body = document.body;
+            var burger = document.getElementById('navBurger');
+            var backdrop = document.getElementById('navBackdrop');
+            var drawer = document.getElementById('navDrawer');
+            var drawerLinks = drawer && drawer.querySelectorAll('.nav-drawer-link, .nav-drawer-cta a');
+            function openNav() {
+                body.classList.add('nav-menu-open');
+                if (burger) { burger.setAttribute('aria-expanded', 'true'); burger.setAttribute('aria-label', 'Close menu'); }
+                if (drawer) drawer.setAttribute('aria-hidden', 'false');
+                if (backdrop) backdrop.setAttribute('aria-hidden', 'false');
+            }
+            function closeNav() {
+                body.classList.remove('nav-menu-open');
+                if (burger) { burger.setAttribute('aria-expanded', 'false'); burger.setAttribute('aria-label', 'Open menu'); }
+                if (drawer) drawer.setAttribute('aria-hidden', 'true');
+                if (backdrop) backdrop.setAttribute('aria-hidden', 'true');
+            }
+            function toggleNav() { body.classList.contains('nav-menu-open') ? closeNav() : openNav(); }
+            if (burger) burger.addEventListener('click', toggleNav);
+            if (backdrop) backdrop.addEventListener('click', closeNav);
+            if (drawerLinks && drawerLinks.length) { for (var i = 0; i < drawerLinks.length; i++) { drawerLinks[i].addEventListener('click', closeNav); } }
+        })();
+    </script>
+    <script is:inline>
+        (function() {
+            var sectionIds = ['patterns', 'sensory-crochet', 'free-school', 'member-vault', 'about'];
+            var sections = sectionIds.map(function(id) { return document.getElementById(id); }).filter(Boolean);
+            if (!sections.length) return;
+            var navLinks = document.querySelectorAll('.nav-link-item[data-section]');
+            function setActive(sectionId) {
+                navLinks.forEach(function(link) {
+                    if (link.getAttribute('data-section') === sectionId) link.classList.add('nav-link-active');
+                    else link.classList.remove('nav-link-active');
+                });
+            }
+            var visible = {};
+            var rootMargin = '-15% 0px -60% 0px';
+            var observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    var id = entry.target.id;
+                    visible[id] = entry.isIntersecting && entry.intersectionRatio > 0.05;
+                });
+                for (var i = 0; i < sectionIds.length; i++) {
+                    if (visible[sectionIds[i]]) { setActive(sectionIds[i]); return; }
+                }
+            }, { root: null, rootMargin: rootMargin, threshold: [0, 0.05, 0.1, 0.2, 0.5] });
+            sections.forEach(function(el) { observer.observe(el); });
+        })();
+    </script>
+</body>
+</html>

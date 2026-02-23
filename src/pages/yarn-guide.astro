@@ -1,0 +1,440 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+<Layout title="KTCA | Yarn Safety Navigator">
+  <header class="pt-24 pb-32 px-6 relative bg-paper overflow-hidden text-center">
+    <div class="max-w-4xl mx-auto relative z-10">
+      <div class="flex justify-center mb-8 opacity-60 text-moss-custom-800 animate-[float_4s_ease-in-out_infinite]">
+        <svg width="40" height="20" viewBox="0 0 40 20" stroke="currentColor" stroke-width="1.5" fill="none" aria-hidden="true"><path d="M20 20 C20 20 12 8 0 8 M20 20 C20 20 28 8 40 8"/><circle cx="20" cy="4" r="2.5" fill="currentColor"/></svg>
+      </div>
+      <h1 class="h1-hero text-5xl md:text-7xl text-stone-custom-900 mb-8">Safety & Comfort <br> <span class="italic text-teal-custom-900">Navigator</span></h1>
+      <p class="text-xl text-stone-custom-600 mb-12 max-w-xl mx-auto font-medium leading-relaxed">
+        Requirements change drastically depending on where your handmade item ends up. Select your destination below.
+      </p>
+
+      <div class="hidden md:flex justify-center gap-4" id="nav-container">
+        <!-- JS injects context buttons -->
+      </div>
+
+      <div class="md:hidden max-w-xs mx-auto">
+        <select id="mobile-context" class="block w-full px-4 py-3 border border-stone-custom-300 bg-white rounded-lg shadow-sm focus:outline-none focus:ring-teal-custom-900 font-sans text-stone-custom-800" aria-label="Select destination context">
+          <option value="general">General Public Use</option>
+          <option value="homecare">Home Care Environment</option>
+          <option value="hospital">Hospital & Clinical</option>
+        </select>
+      </div>
+    </div>
+  </header>
+
+  <main id="navigator" class="bg-stone-custom-100 py-24 relative z-10 border-t border-stone-custom-200">
+    <div class="max-w-7xl mx-auto px-6 md:px-12" id="dashboard-content">
+      <div class="grid lg:grid-cols-12 gap-8 mb-24 fade-in">
+        <div class="lg:col-span-7 bg-white rounded-[3rem] p-8 md:p-12 border border-stone-custom-200 shadow-soft relative overflow-hidden">
+          <div class="flex justify-between items-start mb-6 relative z-10">
+            <div>
+              <span class="text-[10px] font-bold uppercase tracking-[0.25em] text-teal-custom-900 block mb-2">Performance Radar</span>
+              <h3 class="font-serif text-3xl text-stone-custom-900" id="radar-title">Fiber Matrix</h3>
+            </div>
+          </div>
+          <div class="w-full flex justify-center relative z-10">
+            <div class="chart-container">
+              <canvas id="fiberRadarChart" aria-label="Fiber performance radar chart"></canvas>
+            </div>
+          </div>
+          <div class="absolute -bottom-10 -right-10 w-64 h-64 bg-moss-custom-50 rounded-full mix-blend-multiply filter blur-3xl opacity-50 pointer-events-none" aria-hidden="true"></div>
+        </div>
+
+        <div class="lg:col-span-5 flex flex-col gap-6">
+          <div class="bg-moss-custom-900 text-white rounded-[2.5rem] p-10 shadow-lg relative overflow-hidden">
+            <div class="absolute inset-0 opacity-10 bg-dots pointer-events-none" aria-hidden="true"></div>
+            <h3 class="font-serif text-2xl italic mb-6 relative z-10">Key Priorities</h3>
+            <ul class="space-y-4 relative z-10" id="priority-list">
+              <!-- JS injects -->
+            </ul>
+          </div>
+
+          <div class="bg-white rounded-[2.5rem] p-10 border border-stone-custom-200 shadow-soft flex-grow">
+            <h3 class="font-serif text-2xl text-stone-custom-900 mb-6 flex items-center gap-3">
+              <i data-lucide="alert-triangle" class="text-teal-custom-900" aria-hidden="true"></i> Critical Alerts
+            </h3>
+            <div id="warning-content" class="space-y-4 text-stone-custom-600 text-sm leading-relaxed">
+              <!-- JS injects -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <svg class="wave-divider text-paper fill-current" viewBox="0 0 1440 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0,50 C320,130 600,0 920,50 C1240,100 1440,50 1440,50 V100 H0 V50 Z"></path></svg>
+    </div>
+  </main>
+
+  <section id="matchmaker" class="bg-paper py-32 relative z-10">
+    <div class="max-w-7xl mx-auto px-6 md:px-12">
+      <div class="text-center mb-16">
+        <span class="text-[10px] font-bold uppercase tracking-[0.25em] text-teal-custom-900 block mb-3">Project Matchmaker</span>
+        <h2 class="font-serif text-4xl md:text-5xl text-stone-custom-900">What are you making?</h2>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="project-grid">
+        <!-- JS injects cards -->
+      </div>
+
+      <div id="project-detail" class="hidden mt-12 bg-white rounded-[2rem] p-8 md:p-12 border border-stone-custom-200 shadow-xl fade-in relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-2 h-full bg-teal-custom-900 rounded-l" aria-hidden="true"></div>
+        <div class="flex justify-between items-start mb-8">
+          <h4 id="detail-title" class="font-serif text-3xl text-stone-custom-900">Project Title</h4>
+          <button type="button" id="close-detail" class="text-stone-custom-400 hover:text-teal-custom-900 transition-colors" aria-label="Close project detail"><i data-lucide="x" class="w-8 h-8"></i></button>
+        </div>
+        <div class="grid md:grid-cols-2 gap-10">
+          <div class="bg-moss-custom-50 rounded-2xl p-6 border border-moss-custom-100">
+            <div class="flex items-center gap-2 mb-3">
+              <i data-lucide="check-circle" class="text-moss-custom-800 w-5 h-5" aria-hidden="true"></i>
+              <span class="text-[10px] font-bold uppercase tracking-widest text-moss-custom-800">Recommended</span>
+            </div>
+            <p id="detail-rec" class="text-lg font-serif text-stone-custom-900 font-medium mb-2"></p>
+            <p id="detail-why" class="text-sm text-stone-custom-600 italic"></p>
+          </div>
+          <div class="bg-stone-custom-100 rounded-2xl p-6 border border-stone-custom-200">
+            <div class="flex items-center gap-2 mb-3">
+              <i data-lucide="x-circle" class="text-red-800 w-5 h-5" aria-hidden="true"></i>
+              <span class="text-[10px] font-bold uppercase tracking-widest text-red-800">Avoid</span>
+            </div>
+            <p id="detail-avoid" class="text-stone-custom-700"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <svg class="wave-divider text-moss-custom-100 fill-current" viewBox="0 0 1440 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0,50 C320,130 600,0 920,50 C1240,100 1440,50 1440,50 V100 H0 V50 Z"></path></svg>
+  </section>
+
+  <section id="fibers" class="bg-moss-custom-100 py-32 relative z-10">
+    <div class="max-w-7xl mx-auto px-6 md:px-12">
+      <div class="bg-white rounded-[3rem] p-12 shadow-soft border border-white/50">
+        <div class="flex flex-col md:flex-row justify-between items-end mb-10 gap-6">
+          <div>
+            <h2 class="font-serif text-3xl text-stone-custom-900 mb-2">Fiber Deep Dive</h2>
+            <p class="text-stone-custom-600">Detailed analysis of <strong>all fibers</strong> mentioned in the research.</p>
+          </div>
+          <div class="relative">
+            <i data-lucide="search" class="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-custom-400 pointer-events-none" aria-hidden="true"></i>
+            <input type="text" id="fiber-search" placeholder="Search fiber..." class="pl-10 pr-6 py-3 bg-stone-custom-50 border border-stone-custom-200 rounded-full text-sm focus:outline-none focus:border-teal-custom-900 transition-colors w-full md:w-64 font-sans" aria-label="Search fibers">
+          </div>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="min-w-full">
+            <thead class="border-b border-stone-custom-100">
+              <tr>
+                <th class="px-6 py-4 text-left text-[10px] font-bold text-stone-custom-400 uppercase tracking-widest">Fiber Name</th>
+                <th class="px-6 py-4 text-left text-[10px] font-bold text-stone-custom-400 uppercase tracking-widest">Hypoallergenic</th>
+                <th class="px-6 py-4 text-left text-[10px] font-bold text-stone-custom-400 uppercase tracking-widest">Washability</th>
+                <th class="px-6 py-4 text-left text-[10px] font-bold text-stone-custom-400 uppercase tracking-widest">Best For / Notes</th>
+              </tr>
+            </thead>
+            <tbody id="fiber-table-body" class="divide-y divide-stone-custom-100">
+              <!-- JS injects rows -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script is:inline>
+    (function() {
+      if (typeof lucide !== 'undefined') lucide.createIcons();
+
+      var ktcaData = {
+        general: {
+          title: "General Public Use",
+          priorities: [
+            "Hypoallergenic Safety (Assume unknowns)",
+            "Ease of Care (Machine Washable)",
+            "Durability & Shape Retention"
+          ],
+          warnings: [
+            "<strong>Shedding:</strong> Avoid Angora/Mohair for kids (inhalation risk).",
+            "<strong>Allergies:</strong> Label wool content. Avoid wool for unknown baby gifts.",
+            "<strong>Fire Safety:</strong> Acrylic melts; prefer natural fibers near open flames."
+          ],
+          chartData: {
+            labels: ['Softness', 'Durability', 'Washability', 'Elasticity', 'Breathability'],
+            datasets: [
+              { label: 'Merino', data: [9, 8, 7, 9, 8], borderColor: '#134e4a', backgroundColor: 'rgba(19, 78, 74, 0.2)' },
+              { label: 'Cotton', data: [6, 9, 9, 2, 8], borderColor: '#a8a29e', backgroundColor: 'rgba(168, 162, 158, 0.2)' },
+              { label: 'Acrylic', data: [7, 9, 9, 6, 3], borderColor: '#4a5d4a', backgroundColor: 'rgba(74, 93, 74, 0.2)' }
+            ]
+          },
+          projects: [
+            { id: 'baby_toys', title: 'Baby Toys', icon: '🧸', rec: '100% Cotton or Baby Acrylic', why: 'No shedding, washable hot, hypoallergenic.', avoid: 'Mohair, Angora (choking).' },
+            { id: 'socks', title: 'Everyday Socks', icon: '🧦', rec: 'Superwash Wool + Nylon', why: 'Durability & elasticity/memory.', avoid: '100% Cotton (blisters/sag).' },
+            { id: 'hats', title: 'Adult Hats', icon: '🧢', rec: 'Merino Wool or Soft Acrylic', why: 'Elasticity for fit, warmth.', avoid: 'Coarse wool (itchy on forehead).' },
+            { id: 'blankets', title: 'Lap Blankets', icon: '🛋️', rec: 'Acrylic/Wool Blend', why: 'Washable, warm, lightweight.', avoid: 'Heavy cotton (too heavy).' },
+            { id: 'gloves', title: 'Gloves/Mittens', icon: '🧤', rec: 'Wool/Nylon or Acrylic/Nylon', why: 'Flexibility & warmth.', avoid: 'Pure cotton (cold when wet).' },
+            { id: 'jumpers', title: 'Jumpers', icon: '👕', rec: 'Wool/Blends', why: 'Warmth and bounce-back (memory).', avoid: 'Heavy 100% cotton (sags).' }
+          ],
+          fibers: [
+            { name: 'Superwash Merino', hypo: 'Moderate', wash: 'Machine (30-40°C)', best: 'Hats, Scarves (Next-to-skin)' },
+            { name: 'Non-Superwash Wool', hypo: 'Low (Lanolin)', wash: 'Hand Wash Only', best: 'Outerwear (Felts easily)' },
+            { name: '100% Cotton', hypo: 'Excellent', wash: 'Hot Wash', best: 'Toys, Dishcloths, Summer tops' },
+            { name: 'Mercerized Cotton', hypo: 'Excellent', wash: 'Machine', best: 'Accessories (Shiny/Crisp)' },
+            { name: 'Acrylic (Premium)', hypo: 'Excellent', wash: 'Machine & Dry', best: 'Blankets, Charities (Durable)' },
+            { name: 'Alpaca', hypo: 'Good (No Lanolin)', wash: 'Hand Wash', best: 'Luxury Shawls (Warm but stretches)' },
+            { name: 'Bamboo/Viscose', hypo: 'Excellent', wash: 'Gentle', best: 'Summer Wraps (Heavy drape)' },
+            { name: 'Mohair/Angora', hypo: 'Poor (Allergen)', wash: 'Hand Wash', best: 'Halos/Trim (High shedding)' },
+            { name: 'Silk', hypo: 'Good', wash: 'Hand Wash', best: 'Luxury accessories (No elasticity)' },
+            { name: 'Cashmere', hypo: 'Moderate', wash: 'Hand Wash', best: 'Luxury gifts (Pills easily)' },
+            { name: 'Linen', hypo: 'Excellent', wash: 'Machine', best: 'Summer bags (Stiff/Strong)' }
+          ]
+        },
+        homecare: {
+          title: "Home Care Environment",
+          priorities: [
+            "Sensory Soothing (Frail/Thin skin)",
+            "Hygiene (Frequent 60°C washes)",
+            "Emotional Dignity & Comfort"
+          ],
+          warnings: [
+            "<strong>Fragile Skin:</strong> Avoid prickly wool or rough textures.",
+            "<strong>Choking:</strong> Secure buttons/beads on twiddle muffs.",
+            "<strong>Fall Hazard:</strong> Slippers must have non-slip soles."
+          ],
+          chartData: {
+            labels: ['Softness', 'Sanitization', 'Odor Resist', 'Shape', 'Wicking'],
+            datasets: [
+              { label: 'Bamboo/Cotton', data: [10, 6, 5, 4, 8], borderColor: '#134e4a', backgroundColor: 'rgba(19, 78, 74, 0.2)' },
+              { label: 'Acrylic', data: [8, 9, 3, 8, 2], borderColor: '#4a5d4a', backgroundColor: 'rgba(74, 93, 74, 0.2)' },
+              { label: 'Wool Blend', data: [7, 5, 9, 9, 9], borderColor: '#a8a29e', backgroundColor: 'rgba(168, 162, 158, 0.2)' }
+            ]
+          },
+          projects: [
+            { id: 'wheelchair', title: 'Wheelchair Throws', icon: '♿', rec: 'Acrylic/Wool Blend', why: 'Lightweight warmth, easy wash.', avoid: 'Long fringe (wheels).' },
+            { id: 'chemo', title: 'Chemo Caps', icon: '🧣', rec: 'Bamboo/Cotton or Soft Acrylic', why: 'Cooling, silky on scalp.', avoid: 'Wool (itch), seams.' },
+            { id: 'picc', title: 'PICC Covers', icon: '💉', rec: 'Cotton + Elastic', why: 'Breathable, hygienic, snug fit.', avoid: 'Fuzzy yarns (snag risk).' },
+            { id: 'muffs', title: 'Twiddle Muffs', icon: '👐', rec: 'Sturdy Acrylic', why: 'Durable washing.', avoid: 'Shedding yarns, loose parts.' },
+            { id: 'shawls', title: 'Shawls/Bed Jackets', icon: '👘', rec: 'Soft Acrylic, Bamboo/Cotton', why: 'Warmth without weight.', avoid: 'Prickly wool, heavy chunky yarn.' },
+            { id: 'cushions', title: 'Cushion Covers', icon: '🛏️', rec: 'Durable Cotton/Acrylic', why: 'Sturdy, washable, holds shape.', avoid: 'Delicate silk, buttons near skin.' }
+          ],
+          fibers: [
+            { name: 'Soft Acrylic (Baby)', hypo: 'Excellent', wash: 'High Temp', best: 'Daily Blankets (Sanitizable)' },
+            { name: 'Cotton Blends', hypo: 'Excellent', wash: 'Moderate', best: 'Chemo Caps, PICC Covers' },
+            { name: 'Bamboo/Cotton', hypo: 'Excellent', wash: 'Gentle', best: 'Sensitive Scalps (Cooling)' },
+            { name: 'Superwash Merino', hypo: 'Good (If no allergy)', wash: '30-40°C', best: 'Personal items (Regulates temp)' },
+            { name: 'Wool/Nylon', hypo: 'Poor (Sensitivity)', wash: 'Low Temp', best: 'Bed Socks (Wicks moisture)' },
+            { name: 'Chenille/Fleece', hypo: 'Good', wash: 'Machine', best: 'Sensory muffs (Check shedding)' },
+            { name: 'Lurex/Metallic', hypo: 'Poor (Scratchy)', wash: 'N/A', best: 'Avoid (Irritant/Medical interference)' }
+          ]
+        },
+        hospital: {
+          title: "Hospital & Clinical",
+          priorities: [
+            "Infection Control (90°C Wash/Autoclave)",
+            "Zero Shedding (Respiratory Safety)",
+            "Medical Compatibility (No static/metal)"
+          ],
+          warnings: [
+            "<strong>NO ANIMALS:</strong> Wool banned (Allergy risk).",
+            "<strong>Oxygen:</strong> No synthetics (fire risk).",
+            "<strong>MRI:</strong> No metal/sparkles."
+          ],
+          chartData: {
+            labels: ['Sterilization', 'Zero Shed', 'Hypoallergenic', 'Oxygen Safe', 'Durability'],
+            datasets: [
+              { label: 'Cotton (Unmercerized)', data: [10, 10, 10, 10, 8], borderColor: '#134e4a', backgroundColor: 'rgba(19, 78, 74, 0.2)' },
+              { label: 'Acrylic', data: [6, 8, 9, 2, 9], borderColor: '#4a5d4a', backgroundColor: 'rgba(74, 93, 74, 0.2)' },
+              { label: 'Wool', data: [1, 4, 2, 8, 5], borderColor: '#b91c1c', backgroundColor: 'rgba(185, 28, 28, 0.1)' }
+            ]
+          },
+          projects: [
+            { id: 'nicu', title: 'NICU Octopus', icon: '🐙', rec: '100% Cotton (DK)', why: 'Autoclave safe, no shedding.', avoid: 'Wool, Acrylic, fuzzy yarn.' },
+            { id: 'incubator', title: 'Incubator Covers', icon: '🏥', rec: 'Dense Cotton', why: 'Blocks light, no static.', avoid: 'Acrylic (fire risk in oxygen).' },
+            { id: 'knockers', title: 'Knitted Knockers', icon: '💗', rec: 'Cotton or Cotton/Nylon', why: 'Soft on scars, breathable.', avoid: 'Wool (itch), Acrylic (sweaty).' },
+            { id: 'preemie', title: 'Preemie Hats', icon: '👶', rec: '100% Cotton', why: 'Delicate skin, hot wash.', avoid: 'Ties/Strings, Pom-poms.' },
+            { id: 'bonding', title: 'Bonding Squares', icon: '🟩', rec: '100% Cotton', why: 'Absorbs scent, hot wash.', avoid: 'Loose weaves (fingers caught).' },
+            { id: 'therapy', title: 'Therapy Toys', icon: '🧸', rec: 'Premium Acrylic or Cotton', why: 'Washable 60°C+. Durable.', avoid: 'Hard eyes, electronic parts.' },
+            { id: 'heart', title: 'Heart Pillows', icon: '❤️', rec: 'Cotton or Sturdy Acrylic', why: 'Washable hot. Smooth texture.', avoid: 'Buttons, loose loops.' }
+          ],
+          fibers: [
+            { name: '100% Cotton (Unmercerized)', hypo: 'Yes (Gold Standard)', wash: 'Boil/Autoclave', best: 'NICU, Incubators (No Static)' },
+            { name: '100% Cotton (Mercerized)', hypo: 'Yes', wash: 'Hot Wash', best: 'General Ward (Stronger but stiffer)' },
+            { name: 'Acrylic (Anti-pilling)', hypo: 'Yes', wash: '60°C Max', best: 'Ward Blankets, Adult Hats' },
+            { name: 'Cotton/Bamboo Blend', hypo: 'Yes', wash: 'Warm Wash', best: 'Chemo Caps (Softness)' },
+            { name: 'Wool/Alpaca/Angora', hypo: 'NO', wash: 'NO', best: 'PROHIBITED (Allergy/Infection)' },
+            { name: 'Metallic/Glitter', hypo: 'NO', wash: 'N/A', best: 'PROHIBITED (MRI/Scratch hazard)' },
+            { name: 'Bamboo (100%)', hypo: 'Yes', wash: 'Gentle', best: 'Avoid (Too weak for industrial wash)' },
+            { name: 'Silk', hypo: 'Varies', wash: 'Hand Wash', best: 'Avoid (Not sterilizable)' }
+          ]
+        }
+      };
+
+      var currentContext = 'general';
+      var chartInstance = null;
+
+      function renderNav() {
+        var tabs = [
+          { id: 'general', label: 'General Public' },
+          { id: 'homecare', label: 'Home Care' },
+          { id: 'hospital', label: 'Hospital & Clinical' }
+        ];
+        var container = document.getElementById('nav-container');
+        if (!container) return;
+        container.innerHTML = tabs.map(function(tab) {
+          var active = currentContext === tab.id ? 'btn-active' : 'btn-outline';
+          return '<button type="button" onclick="window.yarnGuideUpdateDashboard(\'' + tab.id + '\')" class="px-8 py-3 text-lg font-serif italic rounded-full transition-all shadow-md ' + active + '">' + tab.label + '</button>';
+        }).join('');
+      }
+
+      function updateChart(chartData) {
+        var canvas = document.getElementById('fiberRadarChart');
+        if (!canvas) return;
+        var ctx = canvas.getContext('2d');
+        if (chartInstance) chartInstance.destroy();
+        chartInstance = new Chart(ctx, {
+          type: 'radar',
+          data: chartData,
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              r: {
+                angleLines: { color: 'rgba(0,0,0,0.05)' },
+                grid: { color: 'rgba(0,0,0,0.05)' },
+                pointLabels: {
+                  font: { size: 11, family: "'Lato', sans-serif", weight: '600' },
+                  color: '#57534e'
+                },
+                suggestedMin: 0,
+                suggestedMax: 10,
+                ticks: { display: false }
+              }
+            },
+            plugins: {
+              legend: { position: 'bottom', labels: { font: { family: "'Lato', sans-serif" }, usePointStyle: true } }
+            }
+          }
+        });
+      }
+
+      function renderProjects(projects) {
+        var grid = document.getElementById('project-grid');
+        if (!grid) return;
+        grid.innerHTML = projects.map(function(p) {
+          return '<div role="button" tabindex="0" onclick="window.yarnGuideShowDetail(\'' + p.id + '\')" onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();window.yarnGuideShowDetail(\'' + p.id + '\')}" class="group cursor-pointer bg-white p-6 rounded-[2.5rem] border border-stone-custom-200 shadow-sm hover:shadow-xl transition-all card-hover flex flex-col items-center text-center">' +
+            '<div class="text-5xl mb-4 group-hover:scale-110 transition-transform duration-500">' + p.icon + '</div>' +
+            '<h3 class="font-serif text-xl font-semibold text-stone-custom-900 mb-2">' + p.title + '</h3>' +
+            '<span class="mt-auto text-[10px] font-bold uppercase tracking-widest text-stone-custom-500 border border-stone-custom-200 px-4 py-2 rounded-full group-hover:bg-teal-custom-900 group-hover:text-white transition-all">View Tips</span>' +
+            '</div>';
+        }).join('');
+      }
+
+      function showProjectDetail(projectId) {
+        var data = ktcaData[currentContext].projects.find(function(p) { return p.id === projectId; });
+        if (!data) return;
+        var titleEl = document.getElementById('detail-title');
+        var recEl = document.getElementById('detail-rec');
+        var whyEl = document.getElementById('detail-why');
+        var avoidEl = document.getElementById('detail-avoid');
+        var detailEl = document.getElementById('project-detail');
+        if (titleEl) titleEl.textContent = data.title;
+        if (recEl) recEl.textContent = data.rec;
+        if (whyEl) whyEl.textContent = data.why;
+        if (avoidEl) avoidEl.textContent = data.avoid;
+        if (detailEl) {
+          detailEl.classList.remove('hidden');
+          detailEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+        if (typeof lucide !== 'undefined') lucide.createIcons();
+      }
+
+      function renderFiberTable(contextId, term) {
+        term = term || '';
+        var tbody = document.getElementById('fiber-table-body');
+        if (!tbody) return;
+        var contextData = ktcaData[contextId];
+        var data = (contextData && contextData.fibers) ? contextData.fibers : [];
+        var filtered = data.filter(function(f) { return f.name.toLowerCase().indexOf(term.toLowerCase()) !== -1; });
+        if (filtered.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="4" class="px-6 py-8 text-center text-stone-custom-400 text-sm italic">No matching fibers found.</td></tr>';
+          return;
+        }
+        tbody.innerHTML = filtered.map(function(f) {
+          return '<tr class="hover:bg-white transition-colors group">' +
+            '<td class="px-6 py-4 text-sm font-serif font-semibold text-stone-custom-900 group-hover:text-teal-custom-900">' + f.name + '</td>' +
+            '<td class="px-6 py-4 text-sm text-stone-custom-600">' + f.hypo + '</td>' +
+            '<td class="px-6 py-4 text-sm text-stone-custom-600">' + f.wash + '</td>' +
+            '<td class="px-6 py-4 text-sm text-stone-custom-600 italic">' + f.best + '</td>' +
+            '</tr>';
+        }).join('');
+      }
+
+      function updateDashboard(contextId) {
+        currentContext = contextId;
+        var data = ktcaData[contextId];
+        var mobileSelect = document.getElementById('mobile-context');
+        if (mobileSelect) mobileSelect.value = contextId;
+
+        var content = document.getElementById('dashboard-content');
+        if (content) {
+          content.classList.remove('fade-in');
+          void content.offsetWidth;
+          content.classList.add('fade-in');
+        }
+
+        var radarTitle = document.getElementById('radar-title');
+        if (radarTitle) radarTitle.innerHTML = 'Fiber Matrix for <span class="italic text-teal-custom-900">' + data.title + '</span>';
+
+        var priorityList = document.getElementById('priority-list');
+        if (priorityList) {
+          priorityList.innerHTML = data.priorities.map(function(p) {
+            return '<li class="flex items-start"><i data-lucide="check" class="w-5 h-5 mr-3 text-teal-custom-100 flex-shrink-0"></i> <span class="font-sans text-sm">' + p + '</span></li>';
+          }).join('');
+        }
+
+        var warningContent = document.getElementById('warning-content');
+        if (warningContent) {
+          warningContent.innerHTML = data.warnings.map(function(w) {
+            return '<div class="flex gap-3 items-start"><i data-lucide="alert-circle" class="w-5 h-5 text-red-800 flex-shrink-0 mt-0.5"></i> <p>' + w + '</p></div>';
+          }).join('');
+        }
+
+        if (typeof lucide !== 'undefined') lucide.createIcons();
+        renderNav();
+        updateChart(data.chartData);
+        renderProjects(data.projects);
+        renderFiberTable(contextId, document.getElementById('fiber-search') ? document.getElementById('fiber-search').value : '');
+        var detailEl = document.getElementById('project-detail');
+        if (detailEl) detailEl.classList.add('hidden');
+      }
+
+      function init() {
+        renderNav();
+        updateDashboard(currentContext);
+        var mobileContext = document.getElementById('mobile-context');
+        if (mobileContext) {
+          mobileContext.addEventListener('change', function(e) { updateDashboard(e.target.value); });
+        }
+        var fiberSearch = document.getElementById('fiber-search');
+        if (fiberSearch) {
+          fiberSearch.addEventListener('input', function(e) { renderFiberTable(currentContext, e.target.value); });
+        }
+        var closeDetail = document.getElementById('close-detail');
+        if (closeDetail) {
+          closeDetail.addEventListener('click', function() {
+            var el = document.getElementById('project-detail');
+            if (el) el.classList.add('hidden');
+          });
+        }
+      }
+
+      window.yarnGuideUpdateDashboard = updateDashboard;
+      window.yarnGuideShowDetail = showProjectDetail;
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
+        init();
+      }
+    })();
+  </script>
+</Layout>

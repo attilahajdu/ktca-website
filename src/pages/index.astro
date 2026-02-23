@@ -13,6 +13,7 @@ import katicCrochet from '../assets/images/katic-crochet.jpg';
 
 const featuredPatterns = getFeaturedPatterns();
 const imageMap: Record<string, { src: string }> = { feet1, glove1, glove2, glove3 };
+const base = import.meta.env.BASE_URL;
 ---
 <Layout>
     <header class="pt-16 sm:pt-20 lg:pt-24 pb-24 sm:pb-32 lg:pb-40 px-4 sm:px-6 relative bg-paper overflow-hidden">
@@ -39,7 +40,7 @@ const imageMap: Record<string, { src: string }> = { feet1, glove1, glove2, glove
                     <h2 class="font-serif text-4xl md:text-5xl text-stone-custom-900 mb-3">Featured Patterns</h2>
                     <p class="text-stone-custom-600 font-medium opacity-80">Thoughtfully designed for functionality and dignity.</p>
                 </div>
-                <a href="/patterns/" class="text-[10px] font-bold uppercase tracking-[0.2em] text-teal-custom-900 flex items-center gap-2 group mt-6 md:mt-0 hover:text-moss-custom-800 transition-colors">
+                <a href={base + 'patterns/'} class="text-[10px] font-bold uppercase tracking-[0.2em] text-teal-custom-900 flex items-center gap-2 group mt-6 md:mt-0 hover:text-moss-custom-800 transition-colors">
                     View Collection <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
                 </a>
             </div>
@@ -48,7 +49,7 @@ const imageMap: Record<string, { src: string }> = { feet1, glove1, glove2, glove
                 {featuredPatterns.map((p) => {
                     const imgSrc = p.imageUrl ?? (p.imageKey && imageMap[p.imageKey] ? imageMap[p.imageKey].src : '');
                     return (
-                        <a href={p.detailUrl} class="group cursor-pointer bg-white p-5 rounded-[2.5rem] border border-stone-200 shadow-sm hover:shadow-xl transition-all card-hover flex flex-col block">
+                        <a href={base + p.detailUrl.replace(/^\//, '')} class="group cursor-pointer bg-white p-5 rounded-[2.5rem] border border-stone-200 shadow-sm hover:shadow-xl transition-all card-hover flex flex-col block">
                             <div class="aspect-[10/11] rounded-[2rem] overflow-hidden mb-6 relative border border-stone-100">
                                 {imgSrc && <img src={imgSrc} alt="" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">}
                                 <div class="absolute inset-0 bg-moss-custom-900/0 group-hover:bg-moss-custom-900/5 transition-colors"></div>
@@ -349,7 +350,7 @@ const imageMap: Record<string, { src: string }> = { feet1, glove1, glove2, glove
                 <li class="flex items-start gap-3"><span class="text-teal-custom-900 mt-0.5">✓</span> <span><strong>Bi-weekly Ask Me Anything</strong> — Live sessions where you can get direct answers and tailored advice.</span></li>
                 <li class="flex items-start gap-3"><span class="text-teal-custom-900 mt-0.5">✓</span> <span><strong>Members-only forum</strong> — Post your own questions, share progress, and connect with others on the same journey.</span></li>
             </ul>
-            <a href="#member-vault" class="btn-primary block w-full text-center py-3.5 rounded-full font-bold uppercase text-[11px] tracking-widest">Join Member Vault — £6.99/month</a>
+            <a href={base + '#member-vault'} class="btn-primary block w-full text-center py-3.5 rounded-full font-bold uppercase text-[11px] tracking-widest">Join Member Vault — £6.99/month</a>
         </div>
     </div>
 

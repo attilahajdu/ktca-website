@@ -13,13 +13,14 @@ const imageMap: Record<string, { src: string }> = {
 	glove2,
 	glove3,
 };
+const base = import.meta.env.BASE_URL;
 ---
 
 <Layout title="Pattern Collection | KTCA">
 	<main class="pt-8 sm:pt-12 pb-20 sm:pb-24 px-4 sm:px-6 lg:px-12 max-w-[1440px] mx-auto min-h-screen">
 		<div class="mb-10 sm:mb-12">
 			<div class="text-[10px] text-stone-custom-400 font-bold uppercase tracking-[0.15em] inline-block mb-4">
-				<a href="/" class="hover:text-teal-custom-900">Home</a> <span class="mx-2">/</span> <span class="text-teal-custom-900">Patterns</span>
+				<a href={base} class="hover:text-teal-custom-900">Home</a> <span class="mx-2">/</span> <span class="text-teal-custom-900">Patterns</span>
 			</div>
 			<h1 class="font-serif text-4xl md:text-5xl text-stone-custom-900 mb-3">Pattern Collection</h1>
 			<p class="text-stone-custom-600 font-medium max-w-2xl">Thoughtfully designed knitting and crochet patterns for functionality and dignity. Buy directly or explore each pattern for details and beginner/advanced options.</p>
@@ -62,7 +63,7 @@ const imageMap: Record<string, { src: string }> = {
 							)}
 							<div class="mt-auto space-y-3">
 								<a
-									href={p.detailUrl}
+									href={base + p.detailUrl.replace(/^\//, '')}
 									class="block w-full text-center text-[10px] font-bold uppercase tracking-widest text-stone-custom-500 border border-stone-200 px-6 py-3 rounded-full hover:bg-teal-custom-900 hover:text-white hover:border-teal-custom-900 transition-all"
 								>
 									Find out more

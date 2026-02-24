@@ -1,6 +1,6 @@
 name: Deploy to GitHub Pages
 
-# Re-run on push to main to deploy latest build (uses PUBLIC_YOUTUBE_API_KEY secret)
+# Re-run on push to main to deploy latest build (uses PUBLIC_YOUTUBE_API_KEY secret).
 on:
   push:
     branches: [main]

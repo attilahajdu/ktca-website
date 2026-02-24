@@ -30,6 +30,16 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Check YouTube API key is set
+        run: |
+          if [ -z "$PUBLIC_YOUTUBE_API_KEY" ]; then
+            echo "::error::PUBLIC_YOUTUBE_API_KEY is missing or empty. In Settings → Secrets and variables → Actions, edit PUBLIC_YOUTUBE_API_KEY, paste your YouTube API key into the Value field, then click Update secret."
+            exit 1
+          fi
+          echo "YouTube API key is set (value not shown)."
+        env:
+          PUBLIC_YOUTUBE_API_KEY: ${{ secrets.PUBLIC_YOUTUBE_API_KEY }}
+
       - name: Build
         run: npm run build
         # Inline PUBLIC_YOUTUBE_API_KEY into client script so "Learn with Purpose" playlist loads. Add repo secret in Settings → Secrets and variables → Actions.

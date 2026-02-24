@@ -12,6 +12,7 @@ import article2 from '../assets/images/article2.png';
 import article3 from '../assets/images/article3.png';
 import yarnchoice from '../assets/images/yarnchoice.png';
 import katicCrochet from '../assets/images/katic-crochet.jpg';
+import katicaPortrait from '../assets/images/katica-portrait.jpeg';
 import crochetSensitiveSkinYarn from '../assets/images/crochet-sensitive-skin-yarn.png';
 import crochetCommunication from '../assets/images/crochet-communication.png';
 import piccLineWarmer from '../assets/images/picc-line-warmer.png';
@@ -137,7 +138,7 @@ const base = import.meta.env.BASE_URL;
                 <div>
                     <span class="text-[10px] font-bold uppercase tracking-[0.25em] text-teal-custom-900 block mb-2">Video Guidance</span>
                     <h2 class="font-serif text-4xl md:text-5xl text-stone-custom-900 mb-4">Learn with Purpose</h2>
-                    <a href="#" class="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.2em] text-stone-custom-600 hover:text-teal-custom-900 transition-colors border-b border-transparent hover:border-teal-custom-900 pb-0.5">
+                    <a href="https://www.youtube.com/playlist?list=PLN6Hh6ZaNqtLpIprlr3D4n2VHmoc1woiL" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.2em] text-stone-custom-600 hover:text-teal-custom-900 transition-colors border-b border-transparent hover:border-teal-custom-900 pb-0.5">
                         <span>Check out my YouTube Channel</span>
                         <i data-lucide="external-link" class="w-4 h-4"></i>
                     </a>
@@ -147,76 +148,13 @@ const base = import.meta.env.BASE_URL;
                     <button type="button" id="nextBtn" class="w-12 h-12 min-w-[48px] min-h-[48px] rounded-full border-2 border-stone-300 flex items-center justify-center hover:bg-white active:bg-stone-100 transition-all text-stone-600 bg-paper/50 touch-manipulation" aria-label="Next"><i data-lucide="arrow-right" class="w-5 h-5"></i></button>
                 </div>
             </div>
-            
-            <div class="relative w-full overflow-hidden"> 
-                <div id="carousel" class="flex gap-8 overflow-x-auto no-scrollbar pb-10 snap-x pr-12">
-                    
-                    <div class="video-card-width snap-start group">
-                        <div class="relative aspect-video bg-stone-800 rounded-[2rem] overflow-hidden shadow-lg border-[6px] border-white ring-1 ring-stone-200 card-hover">
-                            <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-all z-10"></div>
-                            <div class="absolute inset-0 flex items-center justify-center z-20"><div class="w-14 h-14 bg-white/95 rounded-full flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform"><i data-lucide="play" class="ml-1 text-teal-custom-900 fill-teal-custom-900 w-5 h-5"></i></div></div>
-                            <img src={article2.src} class="w-full h-full object-cover">
-                        </div>
-                        <h3 class="font-serif text-xl font-bold mt-6 mb-2">Adaptive Knitting 101</h3>
-                        <p class="text-sm text-stone-600 line-clamp-2">The basics of creating comfortable, accessible garments for all needs.</p>
-                    </div>
-                    <div class="video-card-width snap-start group">
-                        <div class="relative aspect-video bg-stone-800 rounded-[2rem] overflow-hidden shadow-lg border-[6px] border-white ring-1 ring-stone-200 card-hover">
-                            <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-all z-10"></div>
-                            <div class="absolute inset-0 flex items-center justify-center z-20"><div class="w-14 h-14 bg-white/95 rounded-full flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform"><i data-lucide="play" class="ml-1 text-teal-custom-900 fill-teal-custom-900 w-5 h-5"></i></div></div>
-                            <img src={yarnchoice.src} class="w-full h-full object-cover">
-                        </div>
-                        <h3 class="font-serif text-xl font-bold mt-6 mb-2">Softest Fibers Guide</h3>
-                        <p class="text-sm text-stone-600 line-clamp-2">Selecting appropriate materials for medically fragile and sensitive skin.</p>
-                    </div>
-                    <div class="video-card-width snap-start group">
-                        <div class="relative aspect-video bg-stone-800 rounded-[2rem] overflow-hidden shadow-lg border-[6px] border-white ring-1 ring-stone-200 card-hover">
-                            <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-all z-10"></div>
-                            <div class="absolute inset-0 flex items-center justify-center z-20"><div class="w-14 h-14 bg-white/95 rounded-full flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform"><i data-lucide="play" class="ml-1 text-teal-custom-900 fill-teal-custom-900 w-5 h-5"></i></div></div>
-                            <img src={feet1.src} class="w-full h-full object-cover">
-                        </div>
-                        <h3 class="font-serif text-xl font-bold mt-6 mb-2">Creating Access Points</h3>
-                        <p class="text-sm text-stone-600 line-clamp-2">Integrating openings for tubes and monitoring wires seamlessly.</p>
-                    </div>
-                    <div class="video-card-width snap-start group">
-                        <div class="relative aspect-video bg-stone-800 rounded-[2rem] overflow-hidden shadow-lg border-[6px] border-white ring-1 ring-stone-200 card-hover">
-                            <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-all z-10"></div>
-                            <div class="absolute inset-0 flex items-center justify-center z-20"><div class="w-14 h-14 bg-white/95 rounded-full flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform"><i data-lucide="play" class="ml-1 text-teal-custom-900 fill-teal-custom-900 w-5 h-5"></i></div></div>
-                            <img src={glove1.src} class="w-full h-full object-cover">
-                        </div>
-                        <h3 class="font-serif text-xl font-bold mt-6 mb-2">Seamless Finishes</h3>
-                        <p class="text-sm text-stone-600 line-clamp-2">Minimizing bulk for comfort under braces and orthotics.</p>
-                    </div>
-                    <div class="video-card-width snap-start group">
-                        <div class="relative aspect-video bg-stone-800 rounded-[2rem] overflow-hidden shadow-lg border-[6px] border-white ring-1 ring-stone-200 card-hover">
-                            <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-all z-10"></div>
-                            <div class="absolute inset-0 flex items-center justify-center z-20"><div class="w-14 h-14 bg-white/95 rounded-full flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform"><i data-lucide="play" class="ml-1 text-teal-custom-900 fill-teal-custom-900 w-5 h-5"></i></div></div>
-                            <img src={glove3.src} class="w-full h-full object-cover">
-                        </div>
-                        <h3 class="font-serif text-xl font-bold mt-6 mb-2">Sensory Adjustments</h3>
-                        <p class="text-sm text-stone-600 line-clamp-2">Modifying patterns for sensory needs and reducing irritation.</p>
-                    </div>
-                    <div class="video-card-width snap-start group">
-                        <div class="relative aspect-video bg-stone-800 rounded-[2rem] overflow-hidden shadow-lg border-[6px] border-white ring-1 ring-stone-200 card-hover">
-                            <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-all z-10"></div>
-                            <div class="absolute inset-0 flex items-center justify-center z-20"><div class="w-14 h-14 bg-white/95 rounded-full flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform"><i data-lucide="play" class="ml-1 text-teal-custom-900 fill-teal-custom-900 w-5 h-5"></i></div></div>
-                            <img src={article3.src} class="w-full h-full object-cover">
-                        </div>
-                        <h3 class="font-serif text-xl font-bold mt-6 mb-2">Working with Cotton</h3>
-                        <p class="text-sm text-stone-600 line-clamp-2">Best practices for using non-stretch plant fibers in adaptive wear.</p>
-                    </div>
-                    <div class="video-card-width snap-start group">
-                        <div class="relative aspect-video bg-stone-800 rounded-[2rem] overflow-hidden shadow-lg border-[6px] border-white ring-1 ring-stone-200 card-hover">
-                            <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-all z-10"></div>
-                            <div class="absolute inset-0 flex items-center justify-center z-20"><div class="w-14 h-14 bg-white/95 rounded-full flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform"><i data-lucide="play" class="ml-1 text-teal-custom-900 fill-teal-custom-900 w-5 h-5"></i></div></div>
-                            <img src={glove2.src} class="w-full h-full object-cover">
-                        </div>
-                        <h3 class="font-serif text-xl font-bold mt-6 mb-2">Custom Measurements</h3>
-                        <p class="text-sm text-stone-600 line-clamp-2">How to measure for unique limb shapes and requirements.</p>
-                    </div>
+
+            <div class="relative w-full overflow-hidden">
+                <div id="playlist-videos-container" class="flex gap-8 overflow-x-auto no-scrollbar pb-10 snap-x snap-mandatory pr-12 items-start min-h-[200px]">
+                    <p class="text-center text-stone-custom-600 py-12 flex-shrink-0" id="playlist-loading">Loading videos…</p>
                 </div>
             </div>
-            
+
             <svg class="wave-divider text-moss-custom-100 fill-current" viewBox="0 0 1440 100" preserveAspectRatio="none"><path d="M0,50 C320,130 600,0 920,50 C1240,100 1440,50 1440,50 V100 H0 V50 Z"></path></svg>
         </div>
     </section>
@@ -303,7 +241,7 @@ const base = import.meta.env.BASE_URL;
                     </div>
                 </div>
                 <div class="mt-12 flex items-center gap-5">
-                    <img src={katicCrochet.src} class="w-16 h-16 rounded-full object-cover border-2 border-white shadow-md">
+                    <img src={katicaPortrait.src} alt="Katica, KTCA Founder" class="w-16 h-16 rounded-full object-cover border-2 border-white shadow-md">
                     <div class="flex flex-col"><span class="font-serif italic text-teal-custom-900 text-xl font-bold">Made with love</span><span class="text-[9px] uppercase font-bold tracking-widest opacity-60">KTCA Founder</span></div>
                 </div>
             </div>
@@ -394,9 +332,75 @@ const base = import.meta.env.BASE_URL;
         </div>
     </div>
 
+    <div id="videoModalBackdrop" class="video-modal-backdrop" aria-hidden="true"></div>
+    <div id="videoModal" class="video-modal" role="dialog" aria-modal="true" aria-labelledby="videoModalTitle" aria-hidden="true">
+        <button type="button" class="video-modal-close" id="videoModalClose" aria-label="Close">×</button>
+        <h2 id="videoModalTitle" class="sr-only">Watch video</h2>
+        <div class="video-modal-content">
+            <div class="aspect-video w-full bg-stone-900 rounded-xl overflow-hidden">
+                <iframe id="videoModalIframe" title="YouTube video" class="w-full h-full" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+
+    <script define:vars={{ publicYouTubeApiKey: import.meta.env.PUBLIC_YOUTUBE_API_KEY }}>
+        (function() {
+            var container = document.getElementById('playlist-videos-container');
+            var loadingEl = document.getElementById('playlist-loading');
+            var playlistId = 'PLN6Hh6ZaNqtLpIprlr3D4n2VHmoc1woiL';
+            var fallbackHtml = '<p class="text-center text-stone-custom-600 py-8 flex-shrink-0">Unable to load videos.</p><a href="https://www.youtube.com/playlist?list=' + playlistId + '" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-teal-custom-900 font-semibold hover:underline flex-shrink-0">Open playlist on YouTube</a>';
+            function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+            if (!container) return;
+            if (!publicYouTubeApiKey) {
+                container.innerHTML = fallbackHtml;
+                if (loadingEl) loadingEl.remove();
+                return;
+            }
+            var url = 'https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=' + playlistId + '&maxResults=8&key=' + publicYouTubeApiKey;
+            fetch(url).then(function(r) { return r.json(); }).then(function(data) {
+                if (!data.items || !data.items.length) {
+                    container.innerHTML = fallbackHtml;
+                    if (loadingEl) loadingEl.remove();
+                    return;
+                }
+                var html = '';
+                for (var i = 0; i < data.items.length; i++) {
+                    var item = data.items[i];
+                    var sn = item.snippet || {};
+                    var vid = (sn.resourceId && sn.resourceId.videoId) || '';
+                    if (!vid) continue;
+                    var title = esc(sn.title || '');
+                    var rawDesc = (sn.description || '').replace(/\s+/g, ' ').trim();
+                    var desc = rawDesc.length > 150 ? rawDesc.slice(0, 150) + '…' : rawDesc;
+                    desc = esc(desc);
+                    var thumbs = sn.thumbnails || {};
+                    var thumb = (thumbs.maxresdefault && thumbs.maxresdefault.url) || (thumbs.high && thumbs.high.url) || (thumbs.medium && thumbs.medium.url) || 'https://img.youtube.com/vi/' + vid + '/hqdefault.jpg';
+                    html += '<div class="video-card-width snap-start">';
+                    html += '<button type="button" class="video-card-trigger text-left w-full group cursor-pointer block" data-video-id="' + vid + '" data-video-title="' + esc(sn.title || '') + '" aria-label="Play: ' + title + '">';
+                    html += '<div class="relative aspect-video bg-stone-800 rounded-[2rem] overflow-hidden shadow-lg border-[6px] border-white ring-1 ring-stone-200 card-hover">';
+                    html += '<div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-all z-10"></div>';
+                    html += '<div class="absolute inset-0 flex items-center justify-center z-20"><div class="w-14 h-14 bg-white/95 rounded-full flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform"><i data-lucide="play" class="ml-1 text-teal-custom-900 fill-teal-custom-900 w-5 h-5"></i></div></div>';
+                    html += '<img src="' + esc(thumb) + '" alt="" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">';
+                    html += '</div><h3 class="font-serif text-xl font-bold mt-2 mb-1 line-clamp-2 text-stone-custom-900">' + title + '</h3>';
+                    if (desc) html += '<p class="text-sm text-stone-600 line-clamp-2">' + desc + '</p>';
+                    html += '</button></div>';
+                }
+                if (html) {
+                    container.innerHTML = html;
+                    if (typeof lucide !== 'undefined' && lucide.createIcons) lucide.createIcons();
+                } else {
+                    container.innerHTML = fallbackHtml;
+                }
+                if (loadingEl) loadingEl.remove();
+            }).catch(function() {
+                container.innerHTML = fallbackHtml;
+                if (loadingEl) loadingEl.remove();
+            });
+        })();
+    </script>
     <script is:inline>
         lucide.createIcons();
-        var carousel = document.getElementById('carousel');
+        var carousel = document.getElementById('playlist-videos-container');
         var nextBtn = document.getElementById('nextBtn');
         var prevBtn = document.getElementById('prevBtn');
         if (carousel && nextBtn && prevBtn) {
@@ -450,6 +454,39 @@ const base = import.meta.env.BASE_URL;
                     learnMoreBtns[i].addEventListener('click', openCrochetModal);
                 }
             }
+        })();
+        (function() {
+            var body = document.body;
+            var backdrop = document.getElementById('videoModalBackdrop');
+            var modal = document.getElementById('videoModal');
+            var iframe = document.getElementById('videoModalIframe');
+            var closeBtn = document.getElementById('videoModalClose');
+            var container = document.getElementById('playlist-videos-container');
+            function openVideoModal(videoId, title) {
+                if (iframe && videoId) {
+                    iframe.src = 'https://www.youtube.com/embed/' + videoId;
+                    var titleEl = document.getElementById('videoModalTitle');
+                    if (titleEl) titleEl.textContent = title || 'Watch video';
+                }
+                body.classList.add('video-modal-open');
+                if (modal) modal.setAttribute('aria-hidden', 'false');
+                if (backdrop) backdrop.setAttribute('aria-hidden', 'false');
+            }
+            function closeVideoModal() {
+                body.classList.remove('video-modal-open');
+                if (modal) modal.setAttribute('aria-hidden', 'true');
+                if (backdrop) backdrop.setAttribute('aria-hidden', 'true');
+                if (iframe) iframe.src = '';
+            }
+            if (closeBtn) closeBtn.addEventListener('click', closeVideoModal);
+            if (backdrop) backdrop.addEventListener('click', closeVideoModal);
+            if (container) container.addEventListener('click', function(e) {
+                var btn = e.target.closest('.video-card-trigger');
+                if (!btn) return;
+                var id = btn.getAttribute('data-video-id');
+                var title = btn.getAttribute('data-video-title') || 'Watch video';
+                if (id) openVideoModal(id, title);
+            });
         })();
     </script>
 </Layout>

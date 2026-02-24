@@ -1,0 +1,36 @@
+---
+import type { Article } from '../data/articles';
+
+interface Props {
+	article: Article;
+	imageSrc: string;
+	baseUrl?: string;
+}
+
+const { article, imageSrc, baseUrl = '' } = Astro.props;
+const articleUrl = baseUrl + `articles/${article.slug}/`;
+---
+
+<a
+	href={articleUrl}
+	class="group cursor-pointer flex flex-col h-full bg-white transition-all duration-500 rounded-[2rem] p-5 hover:shadow-2xl border border-stone-200 hover:border-teal-custom-200/50"
+>
+	<div class="overflow-hidden aspect-[3/2] relative rounded-[1.5rem] mb-6 shadow-md border border-stone-100">
+		<img
+			alt={article.title}
+			class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+			src={imageSrc}
+		/>
+	</div>
+	<div class="flex-grow flex flex-col items-start px-2">
+		<span class="text-[10px] font-bold uppercase tracking-widest text-white bg-teal-custom-800/90 mb-3 px-3 py-1.5 rounded-md">
+			{article.category}
+		</span>
+		<h3 class="font-serif text-2xl text-stone-custom-900 leading-tight group-hover:text-teal-custom-900 transition-colors mb-4 font-semibold">
+			{article.title}
+		</h3>
+		<span class="mt-auto text-sm text-stone-custom-500 font-bold flex items-center group-hover:text-teal-custom-900 transition-colors uppercase tracking-wider">
+			Read article <i data-lucide="arrow-right" class="ml-2 w-4 h-4"></i>
+		</span>
+	</div>
+</a>

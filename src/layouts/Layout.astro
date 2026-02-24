@@ -90,7 +90,7 @@ const base = import.meta.env.BASE_URL;
             var burger = document.getElementById('navBurger');
             var backdrop = document.getElementById('navBackdrop');
             var drawer = document.getElementById('navDrawer');
-            var drawerLinks = drawer && drawer.querySelectorAll('.nav-drawer-link, .nav-drawer-cta a');
+            var drawerLinks = drawer && drawer.querySelectorAll('.nav-drawer-link, .nav-drawer-cta');
             function openNav() {
                 body.classList.add('nav-menu-open');
                 if (burger) { burger.setAttribute('aria-expanded', 'true'); burger.setAttribute('aria-label', 'Close menu'); }
@@ -111,7 +111,7 @@ const base = import.meta.env.BASE_URL;
     </script>
     <script is:inline>
         (function() {
-            var sectionIds = ['patterns', 'sensory-crochet', 'free-school', 'member-vault', 'about'];
+            var sectionIds = ['patterns', 'sensory-crochet', 'free-school', 'comfort-studio', 'about', 'blog'];
             var sections = sectionIds.map(function(id) { return document.getElementById(id); }).filter(Boolean);
             if (!sections.length) return;
             var navLinks = document.querySelectorAll('.nav-link-item[data-section]');

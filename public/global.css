@@ -33,6 +33,12 @@ body { background-color: #fdfbf7; -webkit-font-smoothing: antialiased; color: #1
 }
 .btn-primary:hover { background: #0f3f3c; transform: translateY(-1px); box-shadow: 0 10px 15px -3px rgba(19, 78, 74, 0.3); }
 
+.btn-secondary {
+    background: transparent; color: #3f4d3f; border-radius: 99px;
+    border: 2px solid #3f4d3f; transition: all 0.3s ease;
+}
+.btn-secondary:hover { background: #f4f7f4; border-color: #2d382d; color: #2d382d; }
+
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
@@ -61,6 +67,36 @@ body { background-color: #fdfbf7; -webkit-font-smoothing: antialiased; color: #1
 
 .community-avatar { transition: transform 0.3s ease, margin 0.3s ease; }
 .community-card:hover .community-avatar { margin-right: 0.5rem; transform: scale(1.1); }
+
+/* --- OUR MISSION CARDS --- */
+.mission-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.mission-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+.mission-card .icon-wrap svg { stroke: currentColor; }
+.mission-card .icon-wrap { color: #dae8e8; }
+
+/* --- NAV: highlighted CTA link --- */
+.nav-link-cta { color: #134e4a; }
+.nav-link-cta:hover { color: #0f766e; }
+.nav-link-item.nav-link-cta.nav-link-active { border-bottom-color: #134e4a; }
+
+/* --- PATTERNS FOR PURPOSE CARDS --- */
+.pattern-card { min-height: 0; }
+
+/* --- CALL-OUT BOXES --- */
+.patterns-for-purpose-callout {
+  box-shadow: 0 4px 24px rgba(19, 78, 74, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+.callout-patterns {
+  box-shadow: 0 4px 24px rgba(19, 78, 74, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+.callout-collective {
+  box-shadow: 0 8px 32px rgba(19, 78, 74, 0.12), 0 0 0 1px rgba(19, 78, 74, 0.06);
+}
 
 /* --- MOBILE / TABLET NAV (burger menu) --- */
 body.nav-menu-open { overflow: hidden; touch-action: none; }
@@ -92,15 +128,20 @@ body.nav-menu-open .nav-burger span:nth-child(1) { transform: translateY(7px) ro
 body.nav-menu-open .nav-burger span:nth-child(2) { opacity: 0; }
 body.nav-menu-open .nav-burger span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 .nav-drawer a {
-  display: block; padding: 0.75rem 0;
-  font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+  display: flex; align-items: center; padding: 0.75rem 0;
+  font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em;
   color: #292524; text-decoration: none; border-bottom: 1px solid #e7e5e4;
-  transition: color 0.2s; min-height: 44px; display: flex; align-items: center;
+  transition: color 0.2s; min-height: 44px;
 }
+.nav-drawer a.nav-drawer-link { text-transform: uppercase; }
 .nav-drawer a:hover { color: #134e4a; }
-.nav-drawer .nav-drawer-cta { margin-top: auto; padding-top: 1rem; border-bottom: none; }
-.nav-drawer .nav-drawer-cta a { justify-content: center; min-height: 48px; padding: 0.875rem 1.5rem; border-radius: 99px; background: #134e4a; color: #fff; border: none; }
-.nav-drawer .nav-drawer-cta a:hover { background: #0f3f3c; color: #fff; }
+.nav-drawer a.nav-drawer-cta {
+  margin-top: auto; padding-top: 1rem; margin-bottom: 0.5rem;
+  border-bottom: none; justify-content: center; min-height: 48px;
+  padding: 0.875rem 1.5rem; border-radius: 99px;
+  background: #134e4a; color: #fff; font-weight: 700; text-transform: uppercase;
+}
+.nav-drawer a.nav-drawer-cta:hover { background: #0f3f3c; color: #fff; }
 .badge-coming-soon {
   display: inline-block;
   font-size: 0.6rem;
@@ -114,22 +155,36 @@ body.nav-menu-open .nav-burger span:nth-child(3) { transform: translateY(-7px) r
   border: 1px solid #d6d3d1;
 }
 .badge-coming-soon-nav {
-  font-size: 0.55rem;
-  font-weight: 600;
+  font-size: 0.6rem;
+  font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #78716c;
-  padding: 0.15rem 0.4rem;
+  color: #134e4a;
+  padding: 0.2rem 0.5rem;
   border-radius: 999px;
-  background: #f5f5f4;
-  border: 1px solid #e7e5e4;
+  background: #dae8e8;
+  border: 1px solid #0f766e;
+}
+/* Dual Version badge on pattern cards — outline style, top-right, distinct from solid pills */
+.badge-dual-version {
+  font-size: 0.5625rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #134e4a;
+  padding: 0.35rem 0.6rem;
+  border-radius: 999px;
+  background: rgba(253, 251, 247, 0.95);
+  border: 1.5px solid #134e4a;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
 }
 /* Active nav link (scroll-spy) — text links only */
 .nav-link-item:not(.btn-primary).nav-link-active {
   color: #134e4a;
   border-bottom-color: #134e4a;
 }
-.nav-link-item.btn-primary.nav-link-active {
+.nav-link-item.btn-primary.nav-link-active,
+.nav-link-item.nav-cta-pill.nav-link-active {
   box-shadow: 0 0 0 2px #fdfbf7, 0 0 0 4px #134e4a;
 }
 /* Prominent "Coming soon" badge in Sensory Crochet section */
@@ -175,6 +230,35 @@ body.member-vault-modal-open .member-vault-modal { opacity: 1; visibility: visib
 }
 .member-vault-modal-close:hover { background: #e7e5e4; color: #1c1917; }
 .member-vault-modal-close { font-size: 1.35rem; line-height: 1; font-weight: 300; }
+
+/* --- CROCHET PARTNER MODAL --- */
+body.crochet-partner-modal-open { overflow: hidden; }
+.crochet-partner-modal-backdrop {
+  position: fixed; inset: 0; z-index: 100;
+  background: rgba(28, 25, 23, 0.5);
+  opacity: 0; visibility: hidden; transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+body.crochet-partner-modal-open .crochet-partner-modal-backdrop { opacity: 1; visibility: visible; }
+.crochet-partner-modal {
+  position: fixed; left: 50%; top: 50%; z-index: 101;
+  transform: translate(-50%, -50%) scale(0.96);
+  width: min(28rem, 92vw); max-height: 90vh;
+  background: #fdfbf7; border-radius: 1.5rem;
+  box-shadow: 0 25px 50px -12px rgba(0,0,0,0.2);
+  border: 1px solid #e7e5e4;
+  opacity: 0; visibility: hidden; transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
+  overflow: hidden; display: flex; flex-direction: column;
+}
+body.crochet-partner-modal-open .crochet-partner-modal { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(1); }
+.crochet-partner-modal-close {
+  position: absolute; top: 1rem; right: 1rem; z-index: 2;
+  width: 2.25rem; height: 2.25rem;
+  display: flex; align-items: center; justify-content: center;
+  border: none; background: #f5f5f4; border-radius: 999px;
+  color: #57534e; cursor: pointer; transition: background 0.2s, color 0.2s;
+  font-size: 1.35rem; line-height: 1; font-weight: 300;
+}
+.crochet-partner-modal-close:hover { background: #e7e5e4; color: #1c1917; }
 
 /* --- SECONDARY BUTTON (e.g. pattern page) --- */
 .btn-secondary {
@@ -289,6 +373,14 @@ body.member-vault-modal-open .member-vault-modal { opacity: 1; visibility: visib
     70% { box-shadow: 0 0 0 10px rgba(190, 18, 60, 0); }
     100% { box-shadow: 0 0 0 0 rgba(190, 18, 60, 0); }
 }
+
+/* --- ARTICLE PROSE (Journal pages) --- */
+.prose-article h2 { margin-top: 2rem; margin-bottom: 0.5rem; }
+.prose-article p { margin-bottom: 1rem; }
+.prose-article ul { margin-bottom: 1rem; padding-left: 1.5rem; }
+.prose-article li { margin-bottom: 0.25rem; }
+.prose-article .lead { font-size: 1.125rem; line-height: 1.75; }
+.prose-article i[data-lucide] { display: inline-block; vertical-align: middle; }
 
 /* --- YARN GUIDE: chart & layout --- */
 .chart-container {

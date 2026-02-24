@@ -5,6 +5,7 @@ import feet1 from '../../assets/images/feet1.jpg';
 import glove1 from '../../assets/images/glove1.jpg';
 import glove2 from '../../assets/images/glove2.jpg';
 import glove3 from '../../assets/images/glove3.jpg';
+import piccLineWarmer from '../../assets/images/picc-line-warmer.png';
 
 /** Map imageKey from patterns data to the actual image src. When adding a new pattern, add its image here. */
 const imageMap: Record<string, { src: string }> = {
@@ -12,6 +13,7 @@ const imageMap: Record<string, { src: string }> = {
 	glove1,
 	glove2,
 	glove3,
+	piccLineWarmer,
 };
 const base = import.meta.env.BASE_URL;
 ---
@@ -40,7 +42,9 @@ const base = import.meta.env.BASE_URL;
 						class="pattern-card bg-white p-5 rounded-[2.5rem] border border-stone-200 shadow-sm hover:shadow-xl transition-all card-hover flex flex-col"
 						data-type={p.type}
 					>
-						<div class="aspect-[10/11] rounded-[2rem] overflow-hidden mb-6 relative border border-stone-100">
+						<div class="aspect-[10/11] rounded-[2rem] overflow-hidden mb-4 relative border border-stone-100">
+							{p.badge && <span class="absolute top-3 left-3 z-10 text-[9px] font-bold uppercase tracking-wider bg-teal-custom-900 text-white px-3 py-1.5 rounded-full shadow-sm">{p.badge}</span>}
+							{p.hasBeginner && p.hasAdvanced && <span class="badge-dual-version absolute bottom-3 right-3 z-10">Dual Version</span>}
 							{imgSrc && (
 								<img
 									src={imgSrc}
@@ -55,7 +59,9 @@ const base = import.meta.env.BASE_URL;
 						</div>
 						<div class="text-center px-2 pb-2 flex flex-col flex-grow">
 							<h2 class="font-serif text-xl font-semibold text-stone-custom-900 mb-2">{p.title}</h2>
-							<p class="text-sm text-stone-custom-600 mb-4 leading-relaxed line-clamp-2 min-h-[2.5rem]">{p.shortDescription}</p>
+							<p class="text-sm text-stone-custom-600 mb-3 leading-relaxed line-clamp-2">{p.shortDescription}</p>
+							{p.medicalBenefit && <p class="text-xs text-teal-custom-900 font-bold mb-2">{p.medicalBenefit}</p>}
+							<p class="text-[10px] text-stone-custom-500 mb-3">Member Perk: Get 40% off one pattern every month.</p>
 							{p.hasBeginner && (
 								<p class="text-[10px] text-stone-custom-500 uppercase tracking-wider mb-3">
 									{p.hasAdvanced ? 'Beginner & Advanced' : 'Beginner friendly'}

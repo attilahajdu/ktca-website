@@ -1,0 +1,127 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getArticleBySlug, getAllArticles } from '../../data/articles';
+import yarnchoice from '../../assets/images/yarnchoice.png';
+import article2 from '../../assets/images/article2.png';
+import article3 from '../../assets/images/article3.png';
+
+export async function getStaticPaths() {
+	const articles = getAllArticles();
+	return articles.map((a) => ({ params: { slug: a.slug } }));
+}
+
+const { slug } = Astro.params;
+const article = getArticleBySlug(slug as string);
+const base = import.meta.env.BASE_URL;
+
+const imageMap: Record<string, { src: string }> = {
+	yarnchoice: yarnchoice,
+	article2: article2,
+	article3: article3,
+};
+
+if (!article) {
+	return Astro.redirect(base + 'articles/');
+}
+
+const img = article.imageKey && imageMap[article.imageKey] ? imageMap[article.imageKey].src : '';
+const formattedDate = new Date(article.publishedDate).toLocaleDateString('en-GB', {
+	day: 'numeric',
+	month: 'long',
+	year: 'numeric',
+});
+
+// Article content - extend this per article or move to content collection later
+const articleContent: Record<string, string> = {
+	'choosing-yarn-for-sensitive-skin': `
+		<p class="lead text-lg text-stone-custom-700 mb-8">When knitting for someone with sensitive or fragile skin, the yarn you choose matters more than almost anything else. Here are practical guidelines to help you select fibres that offer comfort, dignity, and ease of care.</p>
+
+		<h2 class="font-serif text-2xl sm:text-3xl text-stone-custom-900 mb-4 mt-10">Start with fibre content</h2>
+		<p class="mb-6 text-stone-custom-600 leading-relaxed">Natural fibres tend to be gentler than synthetics. Merino wool, when superwash-treated, offers softness and breathability without the itch. Bamboo, cotton, and linen are excellent for warmth without irritation—though cotton can be less forgiving for stretch. Avoid novelty yarns with metallic threads, sequins, or rough texture variations.</p>
+
+		<h2 class="font-serif text-2xl sm:text-3xl text-stone-custom-900 mb-4 mt-10">Consider the spin</h2>
+		<p class="mb-6 text-stone-custom-600 leading-relaxed">Tightly spun yarns can feel crisp or scratchy against sensitive skin. Look for loosely plied or single-ply options that feel soft to the touch. Running the yarn across your inner wrist or cheek is a simple test: if it feels even slightly rough, it may cause discomfort over time.</p>
+
+		<h2 class="font-serif text-2xl sm:text-3xl text-stone-custom-900 mb-4 mt-10">Finishing and care</h2>
+		<p class="mb-6 text-stone-custom-600 leading-relaxed">Pre-wash and block your swatch before committing to a project. Many yarns soften significantly after the first wash. Choose fibres that can be machine-washed if the garment will need frequent laundering. Labels matter: look for hypoallergenic or dermatologist-tested certifications when available.</p>
+
+		<div class="bg-teal-custom-50 border border-teal-custom-200 rounded-2xl p-6 sm:p-8 mt-10">
+			<h3 class="font-serif text-xl text-stone-custom-900 mb-3">Quick reference</h3>
+			<ul class="space-y-2 text-stone-custom-700">
+				<li class="flex items-start gap-3"><i data-lucide="check" class="w-5 h-5 text-teal-custom-900 mt-0.5 shrink-0"></i> Merino (superwash), bamboo, cotton, linen</li>
+				<li class="flex items-start gap-3"><i data-lucide="check" class="w-5 h-5 text-teal-custom-900 mt-0.5 shrink-0"></i> Loosely spun over tightly plied</li>
+				<li class="flex items-start gap-3"><i data-lucide="x" class="w-5 h-5 text-stone-400 mt-0.5 shrink-0"></i> Avoid metallics, sequins, and novelty textures</li>
+			</ul>
+		</div>
+	`,
+	'how-to-knit-with-comfort-in-mind': `
+		<p class="lead text-lg text-stone-custom-700 mb-8">Knitting with comfort in mind means considering every stitch from the wearer's perspective. Seams, tension, and finishing techniques all play a role in how a garment feels against the body.</p>
+
+		<h2 class="font-serif text-2xl sm:text-3xl text-stone-custom-900 mb-4 mt-10">Seamless construction</h2>
+		<p class="mb-6 text-stone-custom-600 leading-relaxed">Where possible, choose seamless or minimal-seam patterns. Seams can create pressure points and chafing, especially for those who spend long periods in one position. Knitting in the round eliminates many of these concerns and produces a smooth, continuous fabric.</p>
+
+		<h2 class="font-serif text-2xl sm:text-3xl text-stone-custom-900 mb-4 mt-10">Tension and gauge</h2>
+		<p class="mb-6 text-stone-custom-600 leading-relaxed">Consistent tension is key. Swatch carefully and adjust your needle size to achieve a fabric that feels right—not too dense, not too loose. A slight give in the fabric often improves comfort for medical or sensory needs.</p>
+	`,
+	'adapting-patterns-for-orthotic-supports': `
+		<p class="lead text-lg text-stone-custom-700 mb-8">Adapting knitwear to accommodate orthotics, braces, and supportive devices requires a few deliberate modifications. With some planning, your garments can fit comfortably and look intentional.</p>
+
+		<h2 class="font-serif text-2xl sm:text-3xl text-stone-custom-900 mb-4 mt-10">Identify pressure points</h2>
+		<p class="mb-6 text-stone-custom-600 leading-relaxed">Consider where the orthotic sits and where it may rub. Add extra ease in those areas—either through increases, strategic gussets, or by choosing patterns with built-in flexibility. Stretch and elasticity are your friends.</p>
+
+		<h2 class="font-serif text-2xl sm:text-3xl text-stone-custom-900 mb-4 mt-10">Access points</h2>
+		<p class="mb-6 text-stone-custom-600 leading-relaxed">For leg or arm wear, consider how the garment will go on and off. Side zippers, Velcro closures, or strategic openings can make dressing easier without sacrificing warmth or support.</p>
+	`,
+};
+const content = articleContent[article.slug] ?? '<p class="text-stone-custom-600">Article content coming soon.</p>';
+---
+
+<Layout title={`${article.title} | KTCA`}>
+	<main class="pt-16 sm:pt-20 lg:pt-24 pb-20 sm:pb-24 lg:pb-32 px-4 sm:px-6 lg:px-8">
+		<div class="max-w-3xl mx-auto">
+			<nav class="text-[10px] text-stone-custom-400 font-bold uppercase tracking-[0.15em] mb-8">
+				<a href={base} class="hover:text-teal-custom-900">Home</a>
+				<span class="mx-2">/</span>
+				<a href={base + 'articles/'} class="hover:text-teal-custom-900">The Journal</a>
+				<span class="mx-2">/</span>
+				<span class="text-teal-custom-900">{article.title}</span>
+			</nav>
+
+			<article>
+				<span class="text-[10px] font-bold uppercase tracking-widest text-white bg-teal-custom-800/90 inline-block mb-4 px-3 py-1.5 rounded-md">
+					{article.category}
+				</span>
+				<h1 class="font-serif text-4xl sm:text-5xl text-stone-custom-900 font-semibold leading-tight mb-6">
+					{article.title}
+				</h1>
+				<div class="flex items-center gap-4 text-stone-custom-600 mb-10">
+					<span class="font-medium">{article.author}</span>
+					<span class="text-stone-custom-400">·</span>
+					<time datetime={article.publishedDate}>{formattedDate}</time>
+				</div>
+
+				{img && (
+					<figure class="rounded-[2rem] overflow-hidden mb-12 border border-stone-200 shadow-lg">
+						<img src={img} alt="" class="w-full aspect-[16/10] object-cover" />
+					</figure>
+				)}
+
+				<div class="prose-article" set:html={content} />
+
+				<div class="mt-16 pt-8 border-t border-stone-200">
+					<a
+						href={base + 'articles/'}
+						class="inline-flex items-center gap-2 text-sm font-bold text-stone-custom-600 hover:text-teal-custom-900 uppercase tracking-wider transition-colors"
+					>
+						<i data-lucide="arrow-left" class="w-4 h-4"></i>
+						Back to The Journal
+					</a>
+				</div>
+			</article>
+		</div>
+	</main>
+
+	<script is:inline>
+		if (typeof lucide !== 'undefined') lucide.createIcons();
+	</script>
+</Layout>

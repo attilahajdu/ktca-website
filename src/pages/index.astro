@@ -357,7 +357,16 @@ const base = import.meta.env.BASE_URL;
                 return;
             }
             var url = 'https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=' + playlistId + '&maxResults=8&key=' + publicYouTubeApiKey;
-            fetch(url).then(function(r) { return r.json(); }).then(function(data) {
+            fetch(url).then(function(r) {
+                if (!r.ok) console.error('YouTube API HTTP', r.status, r.statusText);
+                return r.json();
+            }).then(function(data) {
+                if (data.error) {
+                    console.error('YouTube API error:', data.error.code, data.error.message);
+                    container.innerHTML = fallbackHtml;
+                    if (loadingEl) loadingEl.remove();
+                    return;
+                }
                 if (!data.items || !data.items.length) {
                     container.innerHTML = fallbackHtml;
                     if (loadingEl) loadingEl.remove();
@@ -392,7 +401,8 @@ const base = import.meta.env.BASE_URL;
                     container.innerHTML = fallbackHtml;
                 }
                 if (loadingEl) loadingEl.remove();
-            }).catch(function() {
+            }).catch(function(err) {
+                console.error('YouTube playlist fetch failed:', err);
                 container.innerHTML = fallbackHtml;
                 if (loadingEl) loadingEl.remove();
             });

@@ -42,7 +42,7 @@ jobs:
 
       - name: Create .env for build
         run: |
-          echo "PUBLIC_YOUTUBE_API_KEY=$PUBLIC_YOUTUBE_API_KEY" >> .env
+          printf 'PUBLIC_YOUTUBE_API_KEY=%s\n' "$PUBLIC_YOUTUBE_API_KEY" >> .env
         env:
           PUBLIC_YOUTUBE_API_KEY: ${{ secrets.PUBLIC_YOUTUBE_API_KEY }}
 

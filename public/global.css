@@ -110,14 +110,14 @@ body.nav-menu-open .nav-backdrop { opacity: 1; visibility: visible; }
   position: fixed; top: 0; right: 0; bottom: 0; z-index: 50;
   width: min(20rem, 85vw); max-width: 100%;
   background: #fdfbf7; box-shadow: -4px 0 24px rgba(0,0,0,0.08);
-  transform: translateX(100%); transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.3s;
-  display: flex; flex-direction: column; padding-top: 5rem; padding-bottom: 2rem; padding-left: 1.5rem; padding-right: 1.5rem;
+  transform: translateX(100%); transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: none; flex-direction: column; padding-top: 5rem; padding-bottom: 2rem; padding-left: 1.5rem; padding-right: 1.5rem;
   border-left: 1px solid #e7e5e4;
   visibility: hidden; pointer-events: none;
 }
-body.nav-menu-open .nav-drawer { transform: translateX(0); visibility: visible; pointer-events: auto; }
+body.nav-menu-open .nav-drawer { display: flex; transform: translateX(0); visibility: visible; pointer-events: auto; }
 @media (min-width: 1024px) {
-  .nav-drawer { visibility: hidden !important; pointer-events: none !important; }
+  .nav-drawer { display: none !important; visibility: hidden !important; pointer-events: none !important; }
 }
 .nav-burger {
   display: flex; flex-direction: column; justify-content: center; align-items: center;

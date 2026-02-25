@@ -313,8 +313,8 @@ if (apiKey) {
         </div>
     </section>
 
-    <div id="memberVaultModalBackdrop" class="member-vault-modal-backdrop" aria-hidden="true"></div>
-    <div id="memberVaultModal" class="member-vault-modal" role="dialog" aria-modal="true" aria-labelledby="memberVaultModalTitle" aria-hidden="true">
+    <div id="memberVaultModalBackdrop" class="member-vault-modal-backdrop" aria-hidden="true" style="position:fixed;inset:0;z-index:100;"></div>
+    <div id="memberVaultModal" class="member-vault-modal" role="dialog" aria-modal="true" aria-labelledby="memberVaultModalTitle" aria-hidden="true" style="position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:101;">
         <button type="button" class="member-vault-modal-close" id="memberVaultModalClose" aria-label="Close">×</button>
         <div class="p-8 sm:p-10 overflow-y-auto">
             <p class="text-[10px] font-bold uppercase tracking-[0.25em] text-teal-custom-900 mb-3">The Comfort Studio</p>
@@ -333,8 +333,8 @@ if (apiKey) {
         </div>
     </div>
 
-    <div id="crochetPartnerModalBackdrop" class="crochet-partner-modal-backdrop" aria-hidden="true"></div>
-    <div id="crochetPartnerModal" class="crochet-partner-modal" role="dialog" aria-modal="true" aria-labelledby="crochetPartnerModalTitle" aria-hidden="true">
+    <div id="crochetPartnerModalBackdrop" class="crochet-partner-modal-backdrop" aria-hidden="true" style="position:fixed;inset:0;z-index:100;"></div>
+    <div id="crochetPartnerModal" class="crochet-partner-modal" role="dialog" aria-modal="true" aria-labelledby="crochetPartnerModalTitle" aria-hidden="true" style="position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:101;">
         <button type="button" class="crochet-partner-modal-close" id="crochetPartnerModalClose" aria-label="Close">×</button>
         <div class="p-8 sm:p-10 overflow-y-auto">
             <h2 id="crochetPartnerModalTitle" class="font-serif text-2xl sm:text-3xl text-stone-custom-900 mb-4">A Partnership with Purpose</h2>
@@ -349,8 +349,8 @@ if (apiKey) {
         </div>
     </div>
 
-    <div id="videoModalBackdrop" class="video-modal-backdrop" aria-hidden="true"></div>
-    <div id="videoModal" class="video-modal" role="dialog" aria-modal="true" aria-labelledby="videoModalTitle" aria-hidden="true">
+    <div id="videoModalBackdrop" class="video-modal-backdrop" aria-hidden="true" style="position:fixed;inset:0;z-index:100;"></div>
+    <div id="videoModal" class="video-modal" role="dialog" aria-modal="true" aria-labelledby="videoModalTitle" aria-hidden="true" style="position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:101;">
         <button type="button" class="video-modal-close" id="videoModalClose" aria-label="Close">×</button>
         <h2 id="videoModalTitle" class="sr-only">Watch video</h2>
         <div class="video-modal-content">
@@ -435,12 +435,19 @@ if (apiKey) {
     </script>
     <script is:inline>
         (function() {
-            var root = document.getElementById('modal-root');
-            if (!root) return;
-            var ids = ['memberVaultModalBackdrop', 'memberVaultModal', 'crochetPartnerModalBackdrop', 'crochetPartnerModal', 'videoModalBackdrop', 'videoModal'];
-            for (var i = 0; i < ids.length; i++) {
-                var el = document.getElementById(ids[i]);
-                if (el) root.appendChild(el);
+            function moveModals() {
+                var root = document.getElementById('modal-root');
+                if (!root) return;
+                var ids = ['memberVaultModalBackdrop', 'memberVaultModal', 'crochetPartnerModalBackdrop', 'crochetPartnerModal', 'videoModalBackdrop', 'videoModal'];
+                for (var i = 0; i < ids.length; i++) {
+                    var el = document.getElementById(ids[i]);
+                    if (el && el.parentNode !== root) root.appendChild(el);
+                }
+            }
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', moveModals);
+            } else {
+                moveModals();
             }
         })();
         lucide.createIcons();

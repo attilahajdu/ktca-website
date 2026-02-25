@@ -26,6 +26,23 @@ const articleImageMap: Record<string, string> = {
 	article3: article3.src,
 };
 const base = import.meta.env.BASE_URL;
+
+const PLAYLIST_ID = 'PLN6Hh6ZaNqtLpIprlr3D4n2VHmoc1woiL';
+let preloadedPlaylistItems: Array<{ snippet: { title: string; description?: string; resourceId?: { videoId: string }; thumbnails?: Record<string, { url: string }> } }> = [];
+const apiKey = import.meta.env.PUBLIC_YOUTUBE_API_KEY;
+if (apiKey) {
+	try {
+		const res = await fetch(
+			`https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=${PLAYLIST_ID}&maxResults=8&key=${apiKey}`
+		);
+		const data = await res.json();
+		if (data.items && Array.isArray(data.items) && data.items.length > 0) {
+			preloadedPlaylistItems = data.items;
+		}
+	} catch (_) {
+		// Preload failed; client will try fetch or show fallback
+	}
+}
 ---
 <Layout>
     <header class="pt-16 sm:pt-20 lg:pt-24 pb-24 sm:pb-32 lg:pb-40 px-4 sm:px-6 relative bg-paper overflow-hidden">
@@ -59,18 +76,17 @@ const base = import.meta.env.BASE_URL;
                         <a href={base + p.detailUrl.replace(/^\//, '')} class="pattern-card group cursor-pointer bg-white rounded-2xl border border-stone-200 shadow-sm hover:shadow-xl transition-all card-hover flex flex-col overflow-hidden block">
                             <div class="aspect-[10/11] rounded-t-2xl overflow-hidden relative border-b border-stone-100 flex-shrink-0">
                                 {p.badge && <span class="absolute top-3 left-3 z-10 text-[10px] font-bold uppercase tracking-wider bg-teal-custom-900 text-white px-3 py-1.5 rounded-full shadow-sm">{p.badge}</span>}
-                                {p.hasBeginner && p.hasAdvanced && <span class="badge-dual-version absolute top-3 right-3 z-10">Dual Version</span>}
                                 {imgSrc && <img src={imgSrc} alt="" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">}
                                 <div class="absolute inset-0 bg-moss-custom-900/0 group-hover:bg-moss-custom-900/5 transition-colors pointer-events-none"></div>
                             </div>
-                            <div class="p-6 flex flex-col flex-grow min-h-0">
+                            <div class="p-6 sm:p-8 flex flex-col flex-grow min-h-0 text-center">
                                 <h3 class="font-serif text-xl font-semibold text-stone-custom-900 mb-2">{p.title}</h3>
-                                <p class="text-sm text-stone-custom-600 leading-relaxed line-clamp-2 mb-3">{p.shortDescription}</p>
-                                {p.hasBeginner && p.hasAdvanced && <p class="text-[10px] font-bold uppercase tracking-wider text-teal-custom-900 mb-3">Available in Classic Utility &amp; Artisan Detail</p>}
-                                {p.medicalBenefit && <p class="text-xs font-bold text-teal-custom-900 mb-3">{p.medicalBenefit}</p>}
-                                <p class="text-xs text-stone-custom-500 mb-3">Member Perk: Get 40% off one pattern every month.</p>
-                                <p class="text-base font-semibold text-stone-custom-800 mb-4">{p.price}</p>
-                                <span class="mt-auto inline-block text-center text-[11px] font-bold uppercase tracking-widest text-stone-custom-600 border-2 border-stone-200 px-5 py-2.5 rounded-full group-hover:bg-teal-custom-900 group-hover:text-white group-hover:border-teal-custom-900 transition-all">View Pattern</span>
+                                <p class="text-sm text-stone-custom-500 leading-relaxed line-clamp-1 mb-6">{p.medicalBenefit ?? p.shortDescription}</p>
+                                <div class="pt-6 border-t border-stone-100 mt-auto flex flex-col items-center">
+                                    <p class="font-serif text-xl font-semibold text-stone-custom-900 mb-3">{p.price}</p>
+                                    {p.hasBeginner && p.hasAdvanced && <p class="text-[11px] text-stone-custom-500 mb-5">2 for 1 — Classic Utility + Artisan Detail</p>}
+                                    <span class="inline-block w-full max-w-[200px] text-center text-[11px] font-bold uppercase tracking-widest text-stone-custom-600 border-2 border-stone-200 px-5 py-3 rounded-full group-hover:bg-teal-custom-900 group-hover:text-white group-hover:border-teal-custom-900 transition-all">View Pattern</span>
+                                </div>
                             </div>
                         </a>
                     );
@@ -78,7 +94,8 @@ const base = import.meta.env.BASE_URL;
             </div>
 
             <div class="patterns-for-purpose-callout mt-12 sm:mt-14 w-full rounded-2xl border-2 border-teal-custom-200 bg-teal-custom-50 px-6 sm:px-10 py-10 sm:py-12">
-                <p class="text-stone-custom-800 text-base sm:text-lg leading-relaxed font-medium mb-8 text-center max-w-2xl mx-auto">Many of our Patterns of Care feature two ways to knit: a <span class="font-semibold text-stone-custom-900">'Classic Utility'</span> version for beginners and an <span class="font-semibold text-stone-custom-900">'Artisan Detail'</span> version for those who love a complex, soulful challenge. Look for the dual-version badge on select projects.</p>
+                <p class="text-stone-custom-800 text-base sm:text-lg leading-relaxed font-medium mb-4 text-center max-w-2xl mx-auto">Many of our Patterns of Care feature two ways to knit: a <span class="font-semibold text-stone-custom-900">'Classic Utility'</span> version for beginners and an <span class="font-semibold text-stone-custom-900">'Artisan Detail'</span> version for those who love a complex, soulful challenge. Look for the <strong>2 for 1</strong> note on select projects.</p>
+                <p class="text-stone-custom-600 text-sm font-medium text-center mb-8">Members get 40% off one pattern per month.</p>
                 <div class="flex justify-center">
                     <a href={base + 'patterns/'} class="inline-flex items-center justify-center gap-2 btn-primary text-[11px] font-bold uppercase tracking-[0.2em] px-10 py-4 rounded-full group">
                         View All Patterns <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
@@ -343,38 +360,17 @@ const base = import.meta.env.BASE_URL;
         </div>
     </div>
 
-    <script define:vars={{ publicYouTubeApiKey: import.meta.env.PUBLIC_YOUTUBE_API_KEY }}>
+    <script define:vars={{ publicYouTubeApiKey: import.meta.env.PUBLIC_YOUTUBE_API_KEY, preloadedPlaylistItems: preloadedPlaylistItems }}>
         (function() {
             var container = document.getElementById('playlist-videos-container');
             var loadingEl = document.getElementById('playlist-loading');
             var playlistId = 'PLN6Hh6ZaNqtLpIprlr3D4n2VHmoc1woiL';
             var fallbackHtml = '<p class="text-center text-stone-custom-600 py-8 flex-shrink-0">Unable to load videos.</p><a href="https://www.youtube.com/playlist?list=' + playlistId + '" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-teal-custom-900 font-semibold hover:underline flex-shrink-0">Open playlist on YouTube</a>';
             function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
-            if (!container) return;
-            if (!publicYouTubeApiKey) {
-                container.innerHTML = fallbackHtml;
-                if (loadingEl) loadingEl.remove();
-                return;
-            }
-            var url = 'https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=' + playlistId + '&maxResults=8&key=' + publicYouTubeApiKey;
-            fetch(url).then(function(r) {
-                if (!r.ok) console.error('YouTube API HTTP', r.status, r.statusText);
-                return r.json();
-            }).then(function(data) {
-                if (data.error) {
-                    console.error('YouTube API error:', data.error.code, data.error.message);
-                    container.innerHTML = fallbackHtml;
-                    if (loadingEl) loadingEl.remove();
-                    return;
-                }
-                if (!data.items || !data.items.length) {
-                    container.innerHTML = fallbackHtml;
-                    if (loadingEl) loadingEl.remove();
-                    return;
-                }
+            function renderItems(items) {
                 var html = '';
-                for (var i = 0; i < data.items.length; i++) {
-                    var item = data.items[i];
+                for (var i = 0; i < items.length; i++) {
+                    var item = items[i];
                     var sn = item.snippet || {};
                     var vid = (sn.resourceId && sn.resourceId.videoId) || '';
                     if (!vid) continue;
@@ -401,6 +397,35 @@ const base = import.meta.env.BASE_URL;
                     container.innerHTML = fallbackHtml;
                 }
                 if (loadingEl) loadingEl.remove();
+            }
+            if (!container) return;
+            if (preloadedPlaylistItems && preloadedPlaylistItems.length > 0) {
+                renderItems(preloadedPlaylistItems);
+                return;
+            }
+            if (!publicYouTubeApiKey) {
+                console.warn('Videos: PUBLIC_YOUTUBE_API_KEY is not set. Add it to .env and restart the dev server (or use the server that was started with .env).');
+                container.innerHTML = fallbackHtml;
+                if (loadingEl) loadingEl.remove();
+                return;
+            }
+            var url = 'https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=' + playlistId + '&maxResults=8&key=' + publicYouTubeApiKey;
+            fetch(url).then(function(r) {
+                if (!r.ok) console.error('YouTube API HTTP', r.status, r.statusText);
+                return r.json();
+            }).then(function(data) {
+                if (data.error) {
+                    console.error('YouTube API error:', data.error.code, data.error.message);
+                    container.innerHTML = fallbackHtml;
+                    if (loadingEl) loadingEl.remove();
+                    return;
+                }
+                if (!data.items || !data.items.length) {
+                    container.innerHTML = fallbackHtml;
+                    if (loadingEl) loadingEl.remove();
+                    return;
+                }
+                renderItems(data.items);
             }).catch(function(err) {
                 console.error('YouTube playlist fetch failed:', err);
                 container.innerHTML = fallbackHtml;

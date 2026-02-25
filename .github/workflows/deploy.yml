@@ -50,11 +50,19 @@ jobs:
       - name: Build
         run: |
           rm -rf dist
-          npm run build
-        # Inline PUBLIC_YOUTUBE_API_KEY into client script. CI=true forces base /ktca-website/ for GitHub Pages.
+          CI=true ASTRO_BASE=/ktca-website/ npm run build
         env:
           PUBLIC_YOUTUBE_API_KEY: ${{ secrets.PUBLIC_YOUTUBE_API_KEY }}
-          ASTRO_BASE: /ktca-website/
+
+      - name: Verify asset base in build
+        run: |
+          if grep -q 'src="/ktca-website/_astro/' dist/index.html 2>/dev/null; then
+            echo "✓ Build has correct base path /ktca-website/_astro/"
+          else
+            echo "::error::Build missing base path. First img src in index.html:"
+            grep -o 'src="[^"]*"' dist/index.html | head -3
+            exit 1
+          fi
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

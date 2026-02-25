@@ -21,7 +21,7 @@ const base = import.meta.env.BASE_URL;
 
     <link rel="stylesheet" href={base + 'global.css'}>
     <style is:inline>
-        /* Critical: hide modals and nav drawer by default so they never show on load if global.css fails to load */
+        /* Critical: hide modals and nav drawer by default; ensure layout works if global.css fails to load */
         .nav-drawer,
         .member-vault-modal-backdrop, .member-vault-modal,
         .crochet-partner-modal-backdrop, .crochet-partner-modal,
@@ -38,6 +38,81 @@ const base = import.meta.env.BASE_URL;
         body.crochet-partner-modal-open .crochet-partner-modal { opacity: 1 !important; visibility: visible !important; pointer-events: auto !important; }
         body.video-modal-open .video-modal-backdrop,
         body.video-modal-open .video-modal { opacity: 1 !important; visibility: visible !important; pointer-events: auto !important; }
+        /* Modal backdrops and panels (so text modals have background when global.css missing) */
+        .member-vault-modal-backdrop, .crochet-partner-modal-backdrop, .video-modal-backdrop {
+            position: fixed !important; inset: 0 !important; z-index: 100 !important;
+            background: rgba(28, 25, 23, 0.5) !important;
+        }
+        .member-vault-modal, .crochet-partner-modal {
+            position: fixed !important; left: 50% !important; top: 50% !important; z-index: 101 !important;
+            transform: translate(-50%, -50%) !important;
+            width: min(28rem, 92vw) !important; max-height: 90vh !important;
+            background: #fdfbf7 !important; border-radius: 1.5rem !important;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.2) !important;
+            border: 1px solid #e7e5e4 !important;
+            overflow: hidden !important; display: flex !important; flex-direction: column !important;
+        }
+        .video-modal {
+            position: fixed !important; left: 50% !important; top: 50% !important; z-index: 101 !important;
+            transform: translate(-50%, -50%) !important;
+            width: min(56rem, 95vw) !important; max-height: 90vh !important;
+            background: #fdfbf7 !important; border-radius: 1.5rem !important;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.2) !important;
+            border: 1px solid #e7e5e4 !important;
+            overflow: hidden !important; display: flex !important; flex-direction: column !important;
+        }
+        .member-vault-modal-close, .crochet-partner-modal-close {
+            position: absolute !important; top: 1rem !important; right: 1rem !important; z-index: 2 !important;
+            width: 2.25rem !important; height: 2.25rem !important;
+            display: flex !important; align-items: center !important; justify-content: center !important;
+            border: none !important; background: #f5f5f4 !important; border-radius: 999px !important;
+            color: #57534e !important; cursor: pointer !important; font-size: 1.35rem !important; line-height: 1 !important;
+        }
+        .video-modal-close {
+            position: absolute !important; top: 1rem !important; right: 1rem !important; z-index: 2 !important;
+            width: 2.25rem !important; height: 2.25rem !important;
+            display: flex !important; align-items: center !important; justify-content: center !important;
+            border: none !important; background: #134e4a !important; border-radius: 999px !important;
+            color: #fff !important; cursor: pointer !important; font-size: 1.35rem !important; line-height: 1 !important;
+        }
+        .video-modal-content { padding: 2rem !important; padding-top: 3rem !important; }
+        /* Nav: burger visible on mobile, drawer when open */
+        .nav-burger {
+            display: flex !important; flex-direction: column !important; justify-content: center !important; align-items: center !important;
+            width: 2.75rem !important; height: 2.75rem !important; padding: 0.5rem !important;
+            border: none !important; background: transparent !important; cursor: pointer !important; border-radius: 0.5rem !important;
+            color: #292524 !important;
+        }
+        .nav-burger span { display: block !important; width: 1.25rem !important; height: 2px !important; background: currentColor !important; border-radius: 1px !important; }
+        .nav-burger span + span { margin-top: 5px !important; }
+        @media (min-width: 1024px) {
+            .nav-burger { display: none !important; }
+        }
+        .nav-backdrop {
+            position: fixed !important; inset: 0 !important; z-index: 45 !important;
+            background: rgba(28, 25, 23, 0.4) !important;
+            opacity: 0 !important; visibility: hidden !important;
+        }
+        body.nav-menu-open .nav-backdrop { opacity: 1 !important; visibility: visible !important; }
+        .nav-drawer {
+            position: fixed !important; top: 0 !important; right: 0 !important; bottom: 0 !important; z-index: 50 !important;
+            width: min(20rem, 85vw) !important; max-width: 100% !important;
+            background: #fdfbf7 !important; box-shadow: -4px 0 24px rgba(0,0,0,0.08) !important;
+            flex-direction: column !important; padding-top: 5rem !important; padding-bottom: 2rem !important;
+            padding-left: 1.5rem !important; padding-right: 1.5rem !important; border-left: 1px solid #e7e5e4 !important;
+        }
+        body.nav-menu-open .nav-drawer { transform: translateX(0) !important; }
+        .nav-drawer a {
+            display: flex !important; align-items: center !important; padding: 0.75rem 0 !important;
+            font-size: 0.75rem !important; font-weight: 600 !important; letter-spacing: 0.12em !important;
+            color: #292524 !important; text-decoration: none !important; border-bottom: 1px solid #e7e5e4 !important;
+            min-height: 44px !important;
+        }
+        .nav-drawer a.nav-drawer-cta {
+            margin-top: auto !important; padding: 0.875rem 1.5rem !important; border-radius: 99px !important;
+            background: #134e4a !important; color: #fff !important; font-weight: 700 !important; text-transform: uppercase !important;
+            justify-content: center !important; min-height: 48px !important; border-bottom: none !important;
+        }
     </style>
     <style is:inline>
         html { scroll-behavior: smooth; }

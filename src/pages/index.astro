@@ -460,62 +460,58 @@ if (apiKey) {
         }
         (function() {
             var body = document.body;
+            var ids = ['memberVaultModalBackdrop', 'memberVaultModal', 'crochetPartnerModalBackdrop', 'crochetPartnerModal', 'videoModalBackdrop', 'videoModal'];
+            var videoIframe = document.getElementById('videoModalIframe');
+            function closeAllModals() {
+                body.classList.remove('member-vault-modal-open', 'crochet-partner-modal-open', 'video-modal-open');
+                for (var i = 0; i < ids.length; i++) {
+                    var el = document.getElementById(ids[i]);
+                    if (el) el.setAttribute('aria-hidden', 'true');
+                }
+                if (videoIframe) videoIframe.src = '';
+            }
             var backdrop = document.getElementById('memberVaultModalBackdrop');
             var modal = document.getElementById('memberVaultModal');
             var closeBtn = document.getElementById('memberVaultModalClose');
             var learnMoreBtns = document.querySelectorAll('.member-vault-learn-more');
             function openModal() {
+                closeAllModals();
                 body.classList.add('member-vault-modal-open');
                 if (modal) modal.setAttribute('aria-hidden', 'false');
                 if (backdrop) backdrop.setAttribute('aria-hidden', 'false');
             }
-            function closeModal() {
-                body.classList.remove('member-vault-modal-open');
-                if (modal) modal.setAttribute('aria-hidden', 'true');
-                if (backdrop) backdrop.setAttribute('aria-hidden', 'true');
-            }
-            if (closeBtn) closeBtn.addEventListener('click', closeModal);
-            if (backdrop) backdrop.addEventListener('click', closeModal);
+            if (closeBtn) closeBtn.addEventListener('click', closeAllModals);
+            if (backdrop) backdrop.addEventListener('click', closeAllModals);
             if (learnMoreBtns && learnMoreBtns.length) {
                 for (var i = 0; i < learnMoreBtns.length; i++) {
                     learnMoreBtns[i].addEventListener('click', openModal);
                 }
             }
-        })();
-        (function() {
-            var body = document.body;
-            var backdrop = document.getElementById('crochetPartnerModalBackdrop');
-            var modal = document.getElementById('crochetPartnerModal');
-            var closeBtn = document.getElementById('crochetPartnerModalClose');
-            var learnMoreBtns = document.querySelectorAll('.crochet-partner-learn-more');
+            backdrop = document.getElementById('crochetPartnerModalBackdrop');
+            modal = document.getElementById('crochetPartnerModal');
+            closeBtn = document.getElementById('crochetPartnerModalClose');
+            learnMoreBtns = document.querySelectorAll('.crochet-partner-learn-more');
             function openCrochetModal() {
+                closeAllModals();
                 body.classList.add('crochet-partner-modal-open');
                 if (modal) modal.setAttribute('aria-hidden', 'false');
                 if (backdrop) backdrop.setAttribute('aria-hidden', 'false');
             }
-            function closeCrochetModal() {
-                body.classList.remove('crochet-partner-modal-open');
-                if (modal) modal.setAttribute('aria-hidden', 'true');
-                if (backdrop) backdrop.setAttribute('aria-hidden', 'true');
-            }
-            if (closeBtn) closeBtn.addEventListener('click', closeCrochetModal);
-            if (backdrop) backdrop.addEventListener('click', closeCrochetModal);
+            if (closeBtn) closeBtn.addEventListener('click', closeAllModals);
+            if (backdrop) backdrop.addEventListener('click', closeAllModals);
             if (learnMoreBtns && learnMoreBtns.length) {
                 for (var i = 0; i < learnMoreBtns.length; i++) {
                     learnMoreBtns[i].addEventListener('click', openCrochetModal);
                 }
             }
-        })();
-        (function() {
-            var body = document.body;
-            var backdrop = document.getElementById('videoModalBackdrop');
-            var modal = document.getElementById('videoModal');
-            var iframe = document.getElementById('videoModalIframe');
-            var closeBtn = document.getElementById('videoModalClose');
+            backdrop = document.getElementById('videoModalBackdrop');
+            modal = document.getElementById('videoModal');
+            closeBtn = document.getElementById('videoModalClose');
             var container = document.getElementById('playlist-videos-container');
             function openVideoModal(videoId, title) {
-                if (iframe && videoId) {
-                    iframe.src = 'https://www.youtube.com/embed/' + videoId;
+                closeAllModals();
+                if (videoIframe && videoId) {
+                    videoIframe.src = 'https://www.youtube.com/embed/' + videoId;
                     var titleEl = document.getElementById('videoModalTitle');
                     if (titleEl) titleEl.textContent = title || 'Watch video';
                 }
@@ -523,14 +519,8 @@ if (apiKey) {
                 if (modal) modal.setAttribute('aria-hidden', 'false');
                 if (backdrop) backdrop.setAttribute('aria-hidden', 'false');
             }
-            function closeVideoModal() {
-                body.classList.remove('video-modal-open');
-                if (modal) modal.setAttribute('aria-hidden', 'true');
-                if (backdrop) backdrop.setAttribute('aria-hidden', 'true');
-                if (iframe) iframe.src = '';
-            }
-            if (closeBtn) closeBtn.addEventListener('click', closeVideoModal);
-            if (backdrop) backdrop.addEventListener('click', closeVideoModal);
+            if (closeBtn) closeBtn.addEventListener('click', closeAllModals);
+            if (backdrop) backdrop.addEventListener('click', closeAllModals);
             if (container) container.addEventListener('click', function(e) {
                 var btn = e.target.closest('.video-card-trigger');
                 if (!btn) return;

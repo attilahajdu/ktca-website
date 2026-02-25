@@ -1,10 +1,6 @@
-# Astro Starter Kit: Minimal
+# KTCA Website
 
-```sh
-npm create astro@latest -- --template minimal
-```
-
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+> **Deploy env:** For Netlify, set `PUBLIC_YOUTUBE_API_KEY` and `SITE_ORIGIN=https://ktca.netlify.app` (or your Netlify URL) in Site settings → Environment variables so the build-time YouTube fetch works with a referrer-restricted API key. See `.env.example` for local and referrer setup.
 
 ## 🚀 Project Structure
 

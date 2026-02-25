@@ -8,9 +8,10 @@ import { dirname, join } from 'path';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig(({ mode }) => {
-  // Load .env so PUBLIC_YOUTUBE_API_KEY is available when define runs
+  // Load .env so PUBLIC_YOUTUBE_API_KEY and SITE_ORIGIN are available when define runs
   const env = loadEnv(mode, process.cwd(), '');
   const publicYouTubeApiKey = env.PUBLIC_YOUTUBE_API_KEY || process.env.PUBLIC_YOUTUBE_API_KEY || '';
+  const siteOrigin = env.SITE_ORIGIN || process.env.SITE_ORIGIN || '';
 
   // Base path: .astro-base (next to this config) overrides for GitHub Pages. Else / for localhost and katica.co.uk.
   const baseFile = join(__dirname, '.astro-base');
@@ -27,6 +28,7 @@ export default defineConfig(({ mode }) => {
     vite: {
       define: {
         'import.meta.env.PUBLIC_YOUTUBE_API_KEY': JSON.stringify(publicYouTubeApiKey),
+        'import.meta.env.SITE_ORIGIN': JSON.stringify(siteOrigin),
       },
     },
   };

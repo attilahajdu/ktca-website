@@ -30,17 +30,29 @@ const base = import.meta.env.BASE_URL;
 const PLAYLIST_ID = 'PLN6Hh6ZaNqtLpIprlr3D4n2VHmoc1woiL';
 let preloadedPlaylistItems: Array<{ snippet: { title: string; description?: string; resourceId?: { videoId: string }; thumbnails?: Record<string, { url: string }> } }> = [];
 const apiKey = import.meta.env.PUBLIC_YOUTUBE_API_KEY;
+// Origin for build-time fetch so referrer-restricted API keys work. Set SITE_ORIGIN in Netlify (and .env for local) to match allowed referrers in Google Console; GitHub Actions sets it in the workflow.
+const siteOrigin = (import.meta.env.SITE_ORIGIN || import.meta.env.SITE || 'https://attilahajdu.github.io').replace(/\/$/, '');
+const refererUrl = siteOrigin + (import.meta.env.BASE_URL || '/');
 if (apiKey) {
 	try {
 		const res = await fetch(
-			`https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=${PLAYLIST_ID}&maxResults=8&key=${apiKey}`
+			`https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=${PLAYLIST_ID}&maxResults=8&key=${apiKey}`,
+			{
+				headers: {
+					Referer: refererUrl,
+					Origin: siteOrigin,
+				},
+			}
 		);
 		const data = await res.json();
 		if (data.items && Array.isArray(data.items) && data.items.length > 0) {
 			preloadedPlaylistItems = data.items;
+		} else if (data.error) {
+			// Log in build so CI/deploy logs show why preload failed (e.g. 403 referrer, quota).
+			console.warn('[KTCA] YouTube preload failed:', data.error.code, data.error.message);
 		}
-	} catch (_) {
-		// Preload failed; client will try fetch or show fallback
+	} catch (e) {
+		console.warn('[KTCA] YouTube preload fetch error:', e instanceof Error ? e.message : String(e));
 	}
 }
 ---

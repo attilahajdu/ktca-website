@@ -44,6 +44,7 @@ jobs:
         run: |
           printf 'PUBLIC_YOUTUBE_API_KEY=%s\n' "$PUBLIC_YOUTUBE_API_KEY" >> .env
           printf 'ASTRO_BASE=/ktca-website/\n' >> .env
+          printf 'SITE_ORIGIN=https://attilahajdu.github.io\n' >> .env
         env:
           PUBLIC_YOUTUBE_API_KEY: ${{ secrets.PUBLIC_YOUTUBE_API_KEY }}
 
@@ -53,6 +54,8 @@ jobs:
           npx astro build --config astro.config.github-pages.mjs
         env:
           PUBLIC_YOUTUBE_API_KEY: ${{ secrets.PUBLIC_YOUTUBE_API_KEY }}
+          # So build-time YouTube API request sends this referrer (required if key is HTTP-referrer restricted in Google Console).
+          SITE_ORIGIN: 'https://attilahajdu.github.io'
 
       - name: Apply base path for GitHub Pages
         run: |

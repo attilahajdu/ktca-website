@@ -6,6 +6,7 @@ import { loadEnv } from 'vite';
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
   const publicYouTubeApiKey = env.PUBLIC_YOUTUBE_API_KEY || process.env.PUBLIC_YOUTUBE_API_KEY || '';
+  const siteOrigin = env.SITE_ORIGIN || process.env.SITE_ORIGIN || '';
 
   return {
     site: 'https://attilahajdu.github.io',
@@ -14,6 +15,7 @@ export default defineConfig(({ mode }) => {
       base: '/ktca-website/',
       define: {
         'import.meta.env.PUBLIC_YOUTUBE_API_KEY': JSON.stringify(publicYouTubeApiKey),
+        'import.meta.env.SITE_ORIGIN': JSON.stringify(siteOrigin),
       },
     },
     experimental: {

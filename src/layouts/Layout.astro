@@ -21,6 +21,25 @@ const base = import.meta.env.BASE_URL;
 
     <link rel="stylesheet" href={base + 'global.css'}>
     <style is:inline>
+        /* Critical: hide modals and nav drawer by default so they never show on load if global.css fails to load */
+        .nav-drawer,
+        .member-vault-modal-backdrop, .member-vault-modal,
+        .crochet-partner-modal-backdrop, .crochet-partner-modal,
+        .video-modal-backdrop, .video-modal {
+            opacity: 0 !important;
+            visibility: hidden !important;
+            pointer-events: none !important;
+        }
+        .nav-drawer { display: none !important; }
+        body.nav-menu-open .nav-drawer { display: flex !important; opacity: 1 !important; visibility: visible !important; pointer-events: auto !important; }
+        body.member-vault-modal-open .member-vault-modal-backdrop,
+        body.member-vault-modal-open .member-vault-modal { opacity: 1 !important; visibility: visible !important; pointer-events: auto !important; }
+        body.crochet-partner-modal-open .crochet-partner-modal-backdrop,
+        body.crochet-partner-modal-open .crochet-partner-modal { opacity: 1 !important; visibility: visible !important; pointer-events: auto !important; }
+        body.video-modal-open .video-modal-backdrop,
+        body.video-modal-open .video-modal { opacity: 1 !important; visibility: visible !important; pointer-events: auto !important; }
+    </style>
+    <style is:inline>
         html { scroll-behavior: smooth; }
         body { background-color: #fdfbf7; -webkit-font-smoothing: antialiased; color: #1c1917; overflow-x: hidden; }
         .bg-atmosphere { position: fixed; inset: 0; z-index: -1; pointer-events: none; background: radial-gradient(circle at 15% 15%, rgba(63, 77, 63, 0.04) 0%, transparent 45%), radial-gradient(circle at 85% 85%, rgba(19, 78, 74, 0.04) 0%, transparent 45%); }

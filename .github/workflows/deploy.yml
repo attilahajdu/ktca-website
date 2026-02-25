@@ -61,9 +61,6 @@ jobs:
             -e "s|=\"/_astro/|=\"${BASE}/_astro/|g" \
             -e "s|=\"/global|=\"${BASE}/global|g" \
             -e "s|href=\"/|href=\"${BASE}/|g" \
-            -e "s|href=\"${BASE}/${BASE}/|href=\"${BASE}/|g" \
-            -e "s|src=\"/|src=\"${BASE}/|g" \
-            -e "s|src=\"${BASE}/${BASE}/|src=\"${BASE}/|g" \
             {} \;
           find dist -name "*.bak" -delete
 

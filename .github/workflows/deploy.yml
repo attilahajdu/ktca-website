@@ -47,10 +47,13 @@ jobs:
         env:
           PUBLIC_YOUTUBE_API_KEY: ${{ secrets.PUBLIC_YOUTUBE_API_KEY }}
 
+      - name: Set base path for GitHub Pages
+        run: echo -n '/ktca-website/' > .astro-base
+
       - name: Build
         run: |
           rm -rf dist
-          CI=true ASTRO_BASE=/ktca-website/ npm run build
+          npm run build
         env:
           PUBLIC_YOUTUBE_API_KEY: ${{ secrets.PUBLIC_YOUTUBE_API_KEY }}
 

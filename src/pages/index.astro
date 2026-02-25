@@ -361,7 +361,7 @@ if (apiKey) {
         </div>
     </div>
 
-    <script define:vars={{ publicYouTubeApiKey: import.meta.env.PUBLIC_YOUTUBE_API_KEY, preloadedPlaylistItems: preloadedPlaylistItems }}>
+    <script define:vars={{ preloadedPlaylistItems: preloadedPlaylistItems }}>
         (function() {
             var container = document.getElementById('playlist-videos-container');
             var loadingEl = document.getElementById('playlist-loading');
@@ -405,34 +405,8 @@ if (apiKey) {
                 renderItems(preloadedPlaylistItems);
                 return;
             }
-            if (!publicYouTubeApiKey) {
-                console.warn('Videos: PUBLIC_YOUTUBE_API_KEY is not set. Add it to .env and restart the dev server (or use the server that was started with .env).');
-                container.innerHTML = fallbackHtml;
-                if (loadingEl) loadingEl.remove();
-                return;
-            }
-            var url = 'https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=' + playlistId + '&maxResults=8&key=' + publicYouTubeApiKey;
-            fetch(url).then(function(r) {
-                if (!r.ok) console.error('YouTube API HTTP', r.status, r.statusText);
-                return r.json();
-            }).then(function(data) {
-                if (data.error) {
-                    console.error('YouTube API error:', data.error.code, data.error.message);
-                    container.innerHTML = fallbackHtml;
-                    if (loadingEl) loadingEl.remove();
-                    return;
-                }
-                if (!data.items || !data.items.length) {
-                    container.innerHTML = fallbackHtml;
-                    if (loadingEl) loadingEl.remove();
-                    return;
-                }
-                renderItems(data.items);
-            }).catch(function(err) {
-                console.error('YouTube playlist fetch failed:', err);
-                container.innerHTML = fallbackHtml;
-                if (loadingEl) loadingEl.remove();
-            });
+            container.innerHTML = fallbackHtml;
+            if (loadingEl) loadingEl.remove();
         })();
     </script>
     <script is:inline>

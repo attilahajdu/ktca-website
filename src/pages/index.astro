@@ -434,6 +434,15 @@ if (apiKey) {
         })();
     </script>
     <script is:inline>
+        (function() {
+            var root = document.getElementById('modal-root');
+            if (!root) return;
+            var ids = ['memberVaultModalBackdrop', 'memberVaultModal', 'crochetPartnerModalBackdrop', 'crochetPartnerModal', 'videoModalBackdrop', 'videoModal'];
+            for (var i = 0; i < ids.length; i++) {
+                var el = document.getElementById(ids[i]);
+                if (el) root.appendChild(el);
+            }
+        })();
         lucide.createIcons();
         var carousel = document.getElementById('playlist-videos-container');
         var nextBtn = document.getElementById('nextBtn');

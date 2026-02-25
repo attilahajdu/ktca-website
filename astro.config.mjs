@@ -7,8 +7,8 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
   const publicYouTubeApiKey = env.PUBLIC_YOUTUBE_API_KEY || process.env.PUBLIC_YOUTUBE_API_KEY || '';
 
-  // Use root base in dev so http://localhost:4321/ works; use /ktca-website/ for production (GitHub Pages)
-  const base = mode === 'development' ? '/' : '/ktca-website/';
+  // Base path: ASTRO_BASE only in CI for GitHub Pages (/ktca-website/). Default is / so localhost and future custom domain (e.g. katica.co.uk) work at root.
+  const base = process.env.ASTRO_BASE || (mode === 'development' ? '/' : '/');
 
   return {
     site: 'https://attilahajdu.github.io',

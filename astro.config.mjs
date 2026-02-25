@@ -7,8 +7,8 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
   const publicYouTubeApiKey = env.PUBLIC_YOUTUBE_API_KEY || process.env.PUBLIC_YOUTUBE_API_KEY || '';
 
-  // Base path: set ASTRO_BASE in CI (.env or env) for GitHub Pages. Default / for localhost and katica.co.uk.
-  const base = env.ASTRO_BASE || process.env.ASTRO_BASE || (mode === 'development' ? '/' : '/');
+  // Base path: in CI (e.g. GitHub Actions) use /ktca-website/ for GitHub Pages. Otherwise ASTRO_BASE or / for localhost and katica.co.uk.
+  const base = process.env.CI === 'true' ? '/ktca-website/' : (env.ASTRO_BASE || process.env.ASTRO_BASE || (mode === 'development' ? '/' : '/'));
 
   return {
     site: 'https://attilahajdu.github.io',

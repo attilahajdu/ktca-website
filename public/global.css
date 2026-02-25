@@ -312,6 +312,8 @@ body.video-modal-open .video-modal { opacity: 1; visibility: visible; transform:
 }
 .video-modal-close:hover { background: #0f3f3c; color: #fff; }
 .video-modal-content { padding: 2rem; padding-top: 3rem; }
+.video-modal-title { font-family: Lora, serif; font-size: 1.25rem; font-weight: 600; color: #1c1917; margin: 0 0 0.5rem 0; line-height: 1.3; }
+.video-modal-description { font-size: 0.875rem; color: #57534e; line-height: 1.5; margin: 0 0 0.75rem 0; max-height: 5.25em; overflow-y: auto; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
 
 /* --- SECONDARY BUTTON (e.g. pattern page) --- */

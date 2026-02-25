@@ -75,7 +75,7 @@ if (apiKey) {
                     return (
                         <a href={base + p.detailUrl.replace(/^\//, '')} class="pattern-card group cursor-pointer bg-white rounded-2xl border border-stone-200 shadow-sm hover:shadow-xl transition-all card-hover flex flex-col overflow-hidden block">
                             <div class="aspect-[10/11] rounded-t-2xl overflow-hidden relative border-b border-stone-100 flex-shrink-0">
-                                {p.badge && <span class="absolute top-3 left-3 z-10 text-[10px] font-bold uppercase tracking-wider bg-teal-custom-900 text-white px-3 py-1.5 rounded-full shadow-sm">{p.badge}</span>}
+                                {p.badge && <span class="absolute top-3 left-3 z-10 text-[10px] font-bold uppercase tracking-wider bg-white text-teal-custom-900 border-2 border-teal-custom-900 px-3 py-1.5 rounded-full shadow-sm">{p.badge}</span>}
                                 {imgSrc && <img src={imgSrc} alt="" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">}
                                 <div class="absolute inset-0 bg-moss-custom-900/0 group-hover:bg-moss-custom-900/5 transition-colors pointer-events-none"></div>
                             </div>
@@ -352,9 +352,10 @@ if (apiKey) {
     <div id="videoModalBackdrop" class="video-modal-backdrop" aria-hidden="true" style="position:fixed;inset:0;z-index:100;"></div>
     <div id="videoModal" class="video-modal" role="dialog" aria-modal="true" aria-labelledby="videoModalTitle" aria-hidden="true" style="position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:101;">
         <button type="button" class="video-modal-close" id="videoModalClose" aria-label="Close">×</button>
-        <h2 id="videoModalTitle" class="sr-only">Watch video</h2>
         <div class="video-modal-content">
-            <div class="aspect-video w-full bg-stone-900 rounded-xl overflow-hidden">
+            <h2 id="videoModalTitle" class="video-modal-title">Watch video</h2>
+            <p id="videoModalDescription" class="video-modal-description" aria-hidden="true"></p>
+            <div class="aspect-video w-full bg-stone-900 rounded-xl overflow-hidden video-modal-video-wrap">
                 <iframe id="videoModalIframe" title="YouTube video" class="w-full h-full" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
         </div>
@@ -378,10 +379,11 @@ if (apiKey) {
                     var rawDesc = (sn.description || '').replace(/\s+/g, ' ').trim();
                     var desc = rawDesc.length > 150 ? rawDesc.slice(0, 150) + '…' : rawDesc;
                     desc = esc(desc);
+                    var descForModal = rawDesc.length > 300 ? rawDesc.slice(0, 300) + '…' : rawDesc;
                     var thumbs = sn.thumbnails || {};
                     var thumb = (thumbs.maxresdefault && thumbs.maxresdefault.url) || (thumbs.high && thumbs.high.url) || (thumbs.medium && thumbs.medium.url) || 'https://img.youtube.com/vi/' + vid + '/hqdefault.jpg';
                     html += '<div class="video-card-width snap-start">';
-                    html += '<button type="button" class="video-card-trigger text-left w-full group cursor-pointer block" data-video-id="' + vid + '" data-video-title="' + esc(sn.title || '') + '" aria-label="Play: ' + title + '">';
+                    html += '<button type="button" class="video-card-trigger text-left w-full group cursor-pointer block" data-video-id="' + vid + '" data-video-title="' + esc(sn.title || '') + '" data-video-description="' + esc(descForModal) + '" aria-label="Play: ' + title + '">';
                     html += '<div class="relative aspect-video bg-stone-800 rounded-[2rem] overflow-hidden shadow-lg border-[6px] border-white ring-1 ring-stone-200 card-hover">';
                     html += '<div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-all z-10"></div>';
                     html += '<div class="absolute inset-0 flex items-center justify-center z-20"><div class="w-14 h-14 bg-white/95 rounded-full flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform"><i data-lucide="play" class="ml-1 text-teal-custom-900 fill-teal-custom-900 w-5 h-5"></i></div></div>';
@@ -508,12 +510,20 @@ if (apiKey) {
             modal = document.getElementById('videoModal');
             closeBtn = document.getElementById('videoModalClose');
             var container = document.getElementById('playlist-videos-container');
-            function openVideoModal(videoId, title) {
+            function openVideoModal(videoId, title, description) {
                 closeAllModals();
+                var titleEl = document.getElementById('videoModalTitle');
+                var descEl = document.getElementById('videoModalDescription');
+                if (titleEl) titleEl.textContent = title || 'Watch video';
+                if (descEl) {
+                    var text = (description || '').trim();
+                    if (text.length > 300) text = text.slice(0, 300) + '…';
+                    descEl.textContent = text;
+                    descEl.setAttribute('aria-hidden', text ? 'false' : 'true');
+                    descEl.style.display = text ? 'block' : 'none';
+                }
                 if (videoIframe && videoId) {
                     videoIframe.src = 'https://www.youtube.com/embed/' + videoId;
-                    var titleEl = document.getElementById('videoModalTitle');
-                    if (titleEl) titleEl.textContent = title || 'Watch video';
                 }
                 body.classList.add('video-modal-open');
                 if (modal) modal.setAttribute('aria-hidden', 'false');
@@ -526,7 +536,8 @@ if (apiKey) {
                 if (!btn) return;
                 var id = btn.getAttribute('data-video-id');
                 var title = btn.getAttribute('data-video-title') || 'Watch video';
-                if (id) openVideoModal(id, title);
+                var description = btn.getAttribute('data-video-description') || '';
+                if (id) openVideoModal(id, title, description);
             });
         })();
     </script>

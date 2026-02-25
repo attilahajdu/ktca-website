@@ -47,15 +47,25 @@ jobs:
         env:
           PUBLIC_YOUTUBE_API_KEY: ${{ secrets.PUBLIC_YOUTUBE_API_KEY }}
 
-      - name: Set base path for GitHub Pages
-        run: echo -n '/ktca-website/' > .astro-base
-
       - name: Build
         run: |
           rm -rf dist
-          npm run build
+          npx astro build --config astro.config.github-pages.mjs
         env:
           PUBLIC_YOUTUBE_API_KEY: ${{ secrets.PUBLIC_YOUTUBE_API_KEY }}
+
+      - name: Apply base path for GitHub Pages
+        run: |
+          BASE="/ktca-website"
+          find dist -type f \( -name "*.html" -o -name "*.css" -o -name "*.js" \) -exec sed -i.bak \
+            -e "s|=\"/_astro/|=\"${BASE}/_astro/|g" \
+            -e "s|=\"/global|=\"${BASE}/global|g" \
+            -e "s|href=\"/|href=\"${BASE}/|g" \
+            -e "s|href=\"${BASE}/${BASE}/|href=\"${BASE}/|g" \
+            -e "s|src=\"/|src=\"${BASE}/|g" \
+            -e "s|src=\"${BASE}/${BASE}/|src=\"${BASE}/|g" \
+            {} \;
+          find dist -name "*.bak" -delete
 
       - name: Verify asset base in build
         run: |
